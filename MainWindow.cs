@@ -23,13 +23,10 @@ namespace SGB2_Border_Injector
             {
                 try
                 {
+                    textBoxOutput.Text = "";
                     Bitmap img = Program.LoadImage(openFileDialog.FileName);
                     if (img != null)
                     {
-                        if (img.Width != 256 || img.Height != 224)
-                            textBoxOutput.Text = $"Notice: Expected 256 x 224 px image, read {img.Width} x {img.Height} pixels.";
-                        else
-                            textBoxOutput.Text = string.Empty;
                         pictureBox.Image = img;
                     }
                     else
@@ -56,7 +53,7 @@ namespace SGB2_Border_Injector
                     else
                     {
                         textBoxFilename.Text = string.Empty;
-                        textBoxOutput.Text = "Wrong output file.\r\n\r\nPlease select the correct rom:\r\nSuper Game Boy 2 (Japan).sfc\r\nFile size: 524,288 bytes\r\nCRC32: CB176E45";
+                        textBoxOutput.Text = $"Invalid output file: {msg}\r\n\r\nPlease select the correct rom:\r\nSuper Game Boy 2 (Japan).sfc\r\nFile size: 524,288 bytes\r\nCRC32: CB176E45";
                     }
                 }
                 catch { }
@@ -67,7 +64,7 @@ namespace SGB2_Border_Injector
         {
             UseWaitCursor = true;
             textBoxOutput.Text = "Working... (can take up to 30 seconds)";
-            Program.InjectCustomBorder(textBoxFilename.Text, openFileDialog.FileName, comboBoxSlot.SelectedIndex + 3);
+            Program.InjectCustomBorder(textBoxFilename.Text, openFileDialog.FileName, comboBoxSlot.SelectedIndex + 3, checkBoxExternalPalettes.Checked, checkBoxBackup.Checked);
             UseWaitCursor = false;
         }
     }

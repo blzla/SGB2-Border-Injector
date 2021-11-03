@@ -11,8 +11,7 @@ namespace SGB2_Border_Injector
 {
     class Program
     {
-        // todo: manual palette overwrite
-        // todo: always write tilemap after tileset
+        //todo: icon is almost invisible when inactive
 
         private static readonly (string name, int tilemap, (int addr, int chunk_length)[] tileset_chunks, int tileset_maxsize, int palettes, (int addr, byte value)[] patches, int icon)[] border_data = new (string, int, (int, int)[], int, int, (int, byte)[], int)[] {
             ("GB (SGB2)", 0x051800, new (int, int)[] { (0x05C2C0, 0x0) }, 0x0, 0x56E00, new (int, byte)[] { }, 0x061D80),
@@ -21,10 +20,23 @@ namespace SGB2_Border_Injector
             ("Palm Trees", 0x067000, new (int, int)[] { (0x063000, 0x4000) }, 0x4000, 0x67880, new (int, byte)[] { (0x449B7, 0x10), (0x449D5, 0x18) }, 0x062040),
             ("Stone Mosaic", 0x052800, new (int, int)[] { (0x04E000, 0x16E0), (0x04C000, 0x2000) }, 0x36E0, 0x57480, new (int, byte)[] { (0x40FC6, 0x70), (0x40FC7, 0x0B), (0x40FE4, 0x70), (0x40FE5, 0x1B), (0x4101D, 0xE0), (0x4101E, 0x06) }, 0x062080),
             ("Gears", 0x06D000, new (int, int)[] { (0x068000, 0x5000) }, 0x5000, 0x67A80, new (int, byte)[] { (0x446DC, 0x18), (0x446FA, 0x20) }, 0x0620C0),
-            ("Swamp", 0x053000, new (int, int)[] { (0x048000, 0x4000) }, 0x4000, 0x57A80, new (int, byte)[] { (0x4155F, 0x10), (0x4157D, 0x18) }, 0x062100),
-            ("Dolphins", 0x053800, new (int, int)[] { (0x05CCC0, 0x2000), (0x05E300, 0x1A80) }, 0x3A80, 0x57C80, new (int, byte)[] { (0x4265B, 0x10), (0x42679, 0x10), (0x4267C, 0x10), (0x4267F, 0xE3), (0x42686, 0x0B), (0x42696, 0x80), (0x42697, 0x0A), (0x4269A, 0x18), (0x4269D, 0xF3), (0x426B5, 0x08), (0x426B8, 0x3C), (0x426BB, 0xB8), (0x426C2, 0x0A) }, 0x062140),
+            ("Swamp", 0x053000, new (int, int)[] { (0x048000, 0x4000) }, 0x4000, 0x57A80, new (int, byte)[] { (0x4153E, 0x10), (0x41541, 0x10), (0x41544, 0xA0), (0x4154B, 0x09), (0x4155F, 0x18), (0x41562, 0xB0), (0x4157A, 0x08), (0x4157D, 0x3C), (0x41587, 0x0A), (0x041C6B, 0x60) }, 0x062100),
+            ("Dolphins", 0x053800, new (int, int)[] { (0x05CCC0, 0x30C0) }, 0x30C0, 0x57C80, new (int, byte)[] { (0x4265B, 0x10), (0x42679, 0x10), (0x4267C, 0x10), (0x4267E, 0xC0), (0x4267F, 0xEC), (0x42686, 0x0B), (0x42696, 0xC0), (0x42697, 0x00), (0x4269A, 0x18), (0x4269E, 0xC0), (0x4269D, 0xFC), (0x426B5, 0x08), (0x426B8, 0x3C), (0x426BB, 0xB8), (0x426C2, 0x0A) }, 0x062140),
             ("Chess Arena", 0x054800, new (int, int)[] { (0x050000, 0x1000), (0x055800, 0x2000) }, 0x3000, 0x57880, new (int, byte)[] { (0x43333, 0x50), (0x4334E, 0x10), (0x43351, 0x08), (0x43354, 0xD8), (0x4336F, 0x10), (0x43372, 0xE8), (0x4338A, 0x08), (0x4338D, 0x3C), (0x43390, 0xC8) }, 0x061D40)
         };
+
+        private static readonly byte[] border_icon_goose = new byte[] {
+            0x7F, 0x80, 0x40, 0xBF, 0x40, 0xBF, 0x40, 0xBF, 0x41, 0xBE, 0x40, 0xBF, 0x40, 0xBF, 0x40, 0xBF,
+            0x00, 0x00, 0x00, 0x3E, 0x00, 0x3C, 0x00, 0x38, 0x00, 0x38, 0x00, 0x38, 0x00, 0x3C, 0x00, 0x3E,
+            0xFB, 0x04, 0x0B, 0xF4, 0x0B, 0xF4, 0x0B, 0xF4, 0x0B, 0x94, 0x0B, 0x04, 0x0B, 0x84, 0x0B, 0xC4,
+            0x00, 0x00, 0x00, 0x30, 0x00, 0x10, 0x00, 0x10, 0x60, 0x10, 0xF0, 0x00, 0x70, 0x00, 0x30, 0x00,
+            0x40, 0xBF, 0x40, 0xBF, 0x40, 0xBF, 0x44, 0xBB, 0x43, 0xBC, 0x40, 0xBF, 0x40, 0xBF, 0x7F, 0x80,
+            0x00, 0x2F, 0x00, 0x06, 0x00, 0x00, 0x04, 0x00, 0x03, 0x20, 0x00, 0x30, 0x00, 0x38, 0x00, 0x00,
+            0x0B, 0xF4, 0x0B, 0xF4, 0x0B, 0xF4, 0x0B, 0xF4, 0x0B, 0xF4, 0x0B, 0xF4, 0x0B, 0xF4, 0xFB, 0x04,
+            0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x30, 0x00, 0x00
+        };
+
+
         private static MainWindow window = null;
 
         [STAThread]
@@ -35,7 +47,7 @@ namespace SGB2_Border_Injector
             Application.Run(window = new MainWindow());
         }
 
-        internal static bool InjectCustomBorder(string sgb2_rom, string border_file, int border)
+        internal static bool InjectCustomBorder(string sgb2_rom, string border_file, int border, bool external_palettes, bool backup)
         {
             ResetTextOutput();
 
@@ -57,21 +69,17 @@ namespace SGB2_Border_Injector
             var (tiles_data, tiles_flipped_data, tile_colors, too_many_colors) = BuildTileData(border_bitmap);
             if (too_many_colors)
             {
-                WriteLine($"ERROR: Too many colors.");
+                WriteLine($"ERROR: Image contains too many colors.");
                 return false;
             }
 
             // build palettes
-            var (found_working_palettes, palette_sets) = BuildPalettes(tile_colors);
+            var (found_working_palettes, palette_sets) = BuildPalettes(tile_colors, external_palettes);
             if (!found_working_palettes)
-            {
-                WriteLine($"ERROR: Couldn't find working palettes after 100000 tries.");
                 return false;
-            }
 
             // build tileset
             byte[] tileset = BuildTileset(tiles_data, tiles_flipped_data, palette_sets);
-
             if (tileset.Length > border_data[border - 1].tileset_maxsize)
             {
                 WriteLine($"ERROR: Tileset is too big for slot {border}. Please select a different slot.");
@@ -93,12 +101,11 @@ namespace SGB2_Border_Injector
             var (success, _) = ValidateRomFile(sgb2_rom);
             WriteLine($"SGB2 rom: {(success ? "correct" : "error")}");
 
-            /*try
-            {
-                // backup file before making changes
-                File.Copy(sgb2_rom, sgb2_rom + ".bak", true);
-            }
-            catch { }*/
+            if (backup && success)
+                if (success = BackupFile(sgb2_rom))
+                    WriteLine($"Created backup file: {(sgb2_rom.Substring(sgb2_rom.LastIndexOf('\\') + 1) + ".bak")}");
+                else
+                    WriteLine("ERROR Failed to create backup file.");
 
             if (success)
             {
@@ -108,22 +115,24 @@ namespace SGB2_Border_Injector
                     success &= SaveTilemap(fs, tilemap, border);
                     success &= SaveTileset(fs, tileset, border);
                     success &= SavePalettes(fs, ConvertPalettesToBytes(palette_sets), border);
-                    WriteLine($"Wrote tilemap, tileset, palettes... {(success ? "Done" : "Error")}"); 
+                    success &= SaveBorderIcon(fs, border_icon_goose, border);
+                    WriteLine($"Wrote tilemap, tileset, palettes, icon... {(success ? "Done" : "Error")}"); 
                     
                     success &= ApplyDMAPatches(fs, border);
                     success &= PatchOutScreensaver(fs);
                     success &= SetStartupBorder(fs, border);
                     WriteLine($"Applied {border_data[border - 1].patches.Length} DMA patches, disabled screensaver, set startup border... {(success ? "Done" : "Error")}");
+
                     success &= UpdateChecksum(fs);
                     WriteLine($"Updated checksum");
-                    WriteLine();
                 }
             }
+            WriteLine();
             WriteLine($"Injecting border status: {(success ? "Done" : "Error")}");
             return success;
         }
 
-        private static void AddTile(List<(int[] pixels, SortedSet<int>, List<(int, int)> tile_locations)> tiles_data, List<(int[] pixels, int, bool, bool, List<(int, int)> tile_locations)> tiles_flipped_data, int[] tile, SortedSet<int> colors, int x, int y)
+        private static void AddTile(List<(int[] pixels, HashSet<int>, List<(int, int)> tile_locations)> tiles_data, List<(int[] pixels, int, bool, bool, List<(int, int)> tile_locations)> tiles_flipped_data, int[] tile, HashSet<int> colors, int x, int y)
         {
             for (int i = 0; i < tiles_data.Count; i++)
             {
@@ -171,7 +180,7 @@ namespace SGB2_Border_Injector
             return (7 - y) * 8 + x;
         }
 
-        private static int IsFlipped(Func<int,int,int> mapping, List<(int[] pixels, SortedSet<int>, List<(int, int)>)> tiles_data, int[] tile)
+        private static int IsFlipped(Func<int,int,int> mapping, List<(int[] pixels, HashSet<int>, List<(int, int)>)> tiles_data, int[] tile)
         {
             int flip = -1;
 
@@ -205,12 +214,12 @@ namespace SGB2_Border_Injector
             return bgr15;
         }
 
-        private static (List<(int[] pixels, SortedSet<int> colors, List<(int x, int y)> tile_locations)>, List<(int[] pixels, int duplicate_of, bool hflip, bool vflip, List<(int x, int y)> tile_locations)>, List<SortedSet<int>>, bool) BuildTileData(Bitmap border_bitmap)
+        private static (List<(int[] pixels, HashSet<int> colors, List<(int x, int y)> tile_locations)>, List<(int[] pixels, int duplicate_of, bool hflip, bool vflip, List<(int x, int y)> tile_locations)>, List<HashSet<int>>, bool) BuildTileData(Bitmap border_bitmap)
         {
-            var tiles_data = new List<(int[], SortedSet<int>, List<(int, int)>)>();
+            var tiles_data = new List<(int[], HashSet<int>, List<(int, int)>)>();
             var tiles_flipped_data = new List<(int[], int, bool, bool, List<(int x, int y)>)>();
-            var total_colors = new SortedSet<int>();
-            var tile_colors = new List<SortedSet<int>>();
+            var total_colors = new HashSet<int>();
+            var tile_colors = new List<HashSet<int>>();
             bool too_many_colors = false;
 
             for (int x = 0; x < 32; x++)
@@ -221,7 +230,7 @@ namespace SGB2_Border_Injector
                         continue;
 
                     int[] tile = new int[64];
-                    SortedSet<int> colors = new SortedSet<int>();
+                    HashSet<int> colors = new HashSet<int>();
                     for (int i = 0; i < 64; i++)
                     {
                         Color col = border_bitmap.GetPixel(x * 8 + i % 8, y * 8 + i / 8);
@@ -234,12 +243,13 @@ namespace SGB2_Border_Injector
                     {
                         too_many_colors = true;
                         WriteLine($"ERROR. Too many colors in tile {x},{y} ({colors.Count}).");
+                        break;
                     }
-
+                    
                     AddTile(tiles_data, tiles_flipped_data, tile, colors, x, y);
 
                     bool known_colors = false;
-                    foreach (SortedSet<int> c in tile_colors)
+                    foreach (HashSet<int> c in tile_colors)
                     {
                         if (c.IsSupersetOf(colors))
                         {
@@ -257,18 +267,20 @@ namespace SGB2_Border_Injector
                     if (!known_colors)
                         tile_colors.Add(colors);
                 }
+                if (too_many_colors)
+                    break;
             }
 
             if (total_colors.Count > 45)
                 too_many_colors = true;
 
-            WriteLine($"{tile_colors.Count} unique color tiles with a total of {total_colors.Count} colors.");
-            WriteLine($"{tiles_data.Count} unique tiles and {tiles_flipped_data.Count} flipped versions.");
+            WriteLine($"Found {tile_colors.Count} unique color tiles with a total of {total_colors.Count} colors.");
+            WriteLine($"Found {tiles_data.Count} unique tiles and {tiles_flipped_data.Count} flipped versions.");
 
             return (tiles_data, tiles_flipped_data, tile_colors, too_many_colors);
         }
 
-        private static byte[] BuildTileset(List<(int[] pixels, SortedSet<int> colors, List<(int, int)>)> tiles_data, List<(int[], int, bool, bool, List<(int, int)>)> tiles_flipped_data, SortedSet<int>[] palette_sets)
+        private static byte[] BuildTileset(List<(int[] pixels, HashSet<int> colors, List<(int, int)>)> tiles_data, List<(int[], int, bool, bool, List<(int, int)>)> tiles_flipped_data, HashSet<int>[] palette_sets)
         {
             byte[] tileset = new byte[(tiles_data.Count + 1) * 32];
             for (int i = 0; i < tiles_data.Count; i++)
@@ -299,7 +311,7 @@ namespace SGB2_Border_Injector
             return tileset;
         }
 
-        private static byte[] BuildTilemap(List<(int[], SortedSet<int> colors, List<(int, int)>)> tiles_data, List<(int[], int, bool, bool, List<(int, int)>)> tiles_flipped_data, SortedSet<int>[] palette_sets)
+        private static byte[] BuildTilemap(List<(int[], HashSet<int> colors, List<(int, int)>)> tiles_data, List<(int[], int, bool, bool, List<(int, int)>)> tiles_flipped_data, HashSet<int>[] palette_sets)
         {
             byte[] tilemap = new byte[0x700];
             for (int i = 0; i < tiles_data.Count; i++)
@@ -354,45 +366,77 @@ namespace SGB2_Border_Injector
             return tilemap;
         }
 
-        private static (bool, SortedSet<int>[]) BuildPalettes(List<SortedSet<int>> tile_colors)
+        private static (bool, HashSet<int>[]) BuildPalettes(List<HashSet<int>> tile_colors, bool external_palettes)
         {
             bool found_working_palettes = false;
-            int r = 0;
-            SortedSet<int>[] palette_sets = null;
+            int r = 0, maxr = 100000;
+            HashSet<int>[] palette_sets = new HashSet<int>[] { new HashSet<int>(), new HashSet<int>(), new HashSet<int>() };
 
-            while (!found_working_palettes)
+            if (!external_palettes)
             {
-                r++;
-                palette_sets = new SortedSet<int>[]
+                while (!found_working_palettes)
                 {
-                    new SortedSet<int>(),
-                    new SortedSet<int>(),
-                    new SortedSet<int>()
-                };
-                tile_colors = tile_colors.OrderBy(i => Guid.NewGuid()).ToList();
-                foreach (SortedSet<int> colorTile in tile_colors)
-                {
-                    for (int i = 0; i < 3; i++)
+                    foreach (var palette_set in palette_sets)
+                        palette_set.Clear();
+
+                    tile_colors = tile_colors.OrderBy(i => Guid.NewGuid()).ToList();
+                    foreach (HashSet<int> colorTile in tile_colors)
                     {
-                        if (FitsInPalette(palette_sets[i], colorTile))
+                        for (int i = 0; i < 3; i++)
                         {
-                            palette_sets[i].UnionWith(colorTile);
-                            break;
+                            if (FitsInPalette(palette_sets[i], colorTile))
+                            {
+                                palette_sets[i].UnionWith(colorTile);
+                                break;
+                            }
+                        }
+                    }
+                    found_working_palettes = VerifyPalettes(palette_sets, tile_colors);
+
+                    r++;
+                    if (r >= maxr)
+                        break;
+                }
+                if (found_working_palettes)
+                    WriteLine($"Found working palettes after {r} {(r > 1 ? "tries" : "try")}.");
+                else
+                    WriteLine($"ERROR: Couldn't find working palettes after {maxr} tries.");
+            }
+            else
+            {
+                try
+                {
+                    FileInfo f = new FileInfo("palettes.bin");
+                    if (f.Length == 0x60)
+                    {
+                        using (FileStream fs = new FileStream("palettes.bin", FileMode.Open, FileAccess.Read))
+                        {
+                            byte[] buffer = new byte[0x60];
+                            fs.Read(buffer, 0, 0x60);
+                            for (int i = 0; i < 3; i++)
+                            {
+                                for (int j = 1; j < 16; j++)
+                                {
+                                    int col = buffer[32 * i + 2 * j] + buffer[32 * i + 2 * j + 1] * 256;
+                                    if (col > 0x7FFF)
+                                        continue;
+                                    palette_sets[i].Add(col);
+                                }
+                            }
                         }
                     }
                 }
+                catch { }
                 found_working_palettes = VerifyPalettes(palette_sets, tile_colors);
-                if (r >= 100000)
-                    break;
+                if (found_working_palettes)
+                    WriteLine("Succesfully loaded external palettes.");
+                else
+                    WriteLine("ERROR: External palettes don't work for current picture.");
             }
-
-            if (found_working_palettes)
-                WriteLine($"Found working palettes after {r} tries.");
-
             return (found_working_palettes, palette_sets);
         }
 
-        private static byte[] ConvertPalettesToBytes(SortedSet<int>[] palette_sets)
+        private static byte[] ConvertPalettesToBytes(HashSet<int>[] palette_sets)
         {
             byte[] palette_bytes = new byte[96];
             for (int i = 0; i < 3; i++)
@@ -408,7 +452,7 @@ namespace SGB2_Border_Injector
             return palette_bytes;
         }
 
-        private static bool FitsInPalette(SortedSet<int> set, SortedSet<int> colors)
+        private static bool FitsInPalette(HashSet<int> set, HashSet<int> colors)
         {
             int i = set.Count;
             foreach (int col in colors)
@@ -419,10 +463,10 @@ namespace SGB2_Border_Injector
             return i <= 15;
         }
 
-        private static bool VerifyPalettes(SortedSet<int>[] palette_sets, List<SortedSet<int>> tile_colors)
+        private static bool VerifyPalettes(HashSet<int>[] palette_sets, List<HashSet<int>> tile_colors)
         {
             bool success = true;
-            foreach (SortedSet<int> colorTile in tile_colors)
+            foreach (HashSet<int> colorTile in tile_colors)
             {
                 if (!(colorTile.IsSubsetOf(palette_sets[0]) || colorTile.IsSubsetOf(palette_sets[1]) || colorTile.IsSubsetOf(palette_sets[2])))
                 {
@@ -453,11 +497,12 @@ namespace SGB2_Border_Injector
                 Graphics g = Graphics.FromImage(border_bitmap);
                     g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
                     Bitmap file = new Bitmap(file_name);
-                    if (file.Width > 256 || file.Height > 240)
+                    if (file.Width > 1024 || file.Height > 1024)
                     {
+                        WriteLine($"ERROR: Image too big. Expected 256 x 224 px image, read {file.Width} x {file.Height} pixels.");
                         return null;
                     }
-                    else if (file.Width < 256 || file.Height < 224)
+                    else if (file.Width != 256 || file.Height != 224)
                         WriteLine($"Warn: Expected 256 x 224 px image, read {file.Width} x {file.Height} pixels.");
                 g.DrawImageUnscaledAndClipped(file, new Rectangle(0, 0, file.Width, file.Height));
                 g.FillRectangle(new SolidBrush(Color.FromArgb(255, 239, 206)), new Rectangle(48, 40, 160, 144));
@@ -493,7 +538,18 @@ namespace SGB2_Border_Injector
                 }
             }
             catch { }
-            return (false, "File access error");
+            return (false, "File access error.");
+        }
+
+        private static bool BackupFile(string file_name)
+        {
+            try
+            {
+                File.Copy(file_name, file_name + ".bak", true);
+                return true;
+            }
+            catch { }
+            return false;
         }
 
         private static bool SaveTilemap(FileStream fs, byte[] tilemap, int border)
@@ -532,6 +588,7 @@ namespace SGB2_Border_Injector
                 {
                     fs.Seek(addr, SeekOrigin.Begin);
                     int chunk_bytes = (tileset.Length - bytes_written) > chunk_length ? chunk_length : (tileset.Length - bytes_written);
+                    Console.WriteLine(addr.ToString("X4") + " " + chunk_bytes.ToString("X4") + " " + bytes_written.ToString("X4"));
                     fs.Write(tileset, bytes_written, chunk_bytes);
                     bytes_written += chunk_bytes;
                     if (bytes_written >= tileset.Length)
@@ -540,6 +597,20 @@ namespace SGB2_Border_Injector
                 return true;
             }
             catch (Exception E) { Console.WriteLine(E.ToString()); }
+            return false;
+        }
+
+        private static bool SaveBorderIcon(FileStream fs, byte[] icon, int border)
+        {
+            try
+            {
+                fs.Seek(border_data[border - 1].icon, SeekOrigin.Begin);
+                fs.Write(icon, 0, 64);
+                fs.Seek(0x1C0, SeekOrigin.Current);
+                fs.Write(icon, 64, 64);
+                return true;
+            }
+            catch { }
             return false;
         }
 
@@ -633,6 +704,7 @@ namespace SGB2_Border_Injector
             catch { }
             return false;
         }
+
         private static void ResetTextOutput()
         {
             window.textBoxOutput.Text = string.Empty;

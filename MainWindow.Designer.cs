@@ -44,6 +44,8 @@ namespace SGB2_Border_Injector
             this.buttonInject = new System.Windows.Forms.Button();
             this.comboBoxSlot = new System.Windows.Forms.ComboBox();
             this.groupBoxSlot = new System.Windows.Forms.GroupBox();
+            this.checkBoxExternalPalettes = new System.Windows.Forms.CheckBox();
+            this.checkBoxBackup = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBoxImage.SuspendLayout();
@@ -112,7 +114,7 @@ namespace SGB2_Border_Injector
             this.panel1.Location = new System.Drawing.Point(313, 13);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(258, 226);
-            this.panel1.TabIndex = 5;
+            this.panel1.TabIndex = 7;
             // 
             // saveFileDialog
             // 
@@ -152,7 +154,7 @@ namespace SGB2_Border_Injector
             this.groupBoxOutput.Location = new System.Drawing.Point(11, 283);
             this.groupBoxOutput.Name = "groupBoxOutput";
             this.groupBoxOutput.Size = new System.Drawing.Size(560, 300);
-            this.groupBoxOutput.TabIndex = 4;
+            this.groupBoxOutput.TabIndex = 6;
             this.groupBoxOutput.TabStop = false;
             this.groupBoxOutput.Text = "Output";
             // 
@@ -203,17 +205,42 @@ namespace SGB2_Border_Injector
             this.groupBoxSlot.TabStop = false;
             this.groupBoxSlot.Text = "Select Border Slot";
             // 
+            // checkBoxExternalPalettes
+            // 
+            this.checkBoxExternalPalettes.AutoSize = true;
+            this.checkBoxExternalPalettes.Location = new System.Drawing.Point(419, 255);
+            this.checkBoxExternalPalettes.Name = "checkBoxExternalPalettes";
+            this.checkBoxExternalPalettes.Size = new System.Drawing.Size(148, 17);
+            this.checkBoxExternalPalettes.TabIndex = 5;
+            this.checkBoxExternalPalettes.Text = "Load External palettes.bin";
+            this.checkBoxExternalPalettes.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxBackup
+            // 
+            this.checkBoxBackup.AutoSize = true;
+            this.checkBoxBackup.Location = new System.Drawing.Point(329, 255);
+            this.checkBoxBackup.Name = "checkBoxBackup";
+            this.checkBoxBackup.Size = new System.Drawing.Size(82, 17);
+            this.checkBoxBackup.TabIndex = 4;
+            this.checkBoxBackup.Text = "Backup File";
+            this.checkBoxBackup.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(586, 597);
+            this.Controls.Add(this.checkBoxBackup);
+            this.Controls.Add(this.checkBoxExternalPalettes);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBoxSlot);
             this.Controls.Add(this.groupBoxInject);
             this.Controls.Add(this.groupBoxOutput);
             this.Controls.Add(this.groupBoxFile);
             this.Controls.Add(this.groupBoxImage);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximumSize = new System.Drawing.Size(602, 636);
+            this.MinimumSize = new System.Drawing.Size(602, 636);
             this.Name = "MainWindow";
             this.Text = "Super Game Boy 2 Border Injector";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
@@ -226,6 +253,7 @@ namespace SGB2_Border_Injector
             this.groupBoxInject.ResumeLayout(false);
             this.groupBoxSlot.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -245,5 +273,7 @@ namespace SGB2_Border_Injector
         internal System.Windows.Forms.TextBox textBoxOutput;
         internal System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.GroupBox groupBoxSlot;
+        private System.Windows.Forms.CheckBox checkBoxBackup;
+        private System.Windows.Forms.CheckBox checkBoxExternalPalettes;
     }
 }
