@@ -89,7 +89,7 @@ namespace SGB2_Border_Injector
             this.textBoxOutput.Size = new System.Drawing.Size(527, 152);
             this.textBoxOutput.TabIndex = 0;
             this.textBoxOutput.Text = "Image requirements: 256 × 224 px, with a maximum of 3 × 15 color palettes.\r\n\r\n   " +
-    "  Version 0.1\r\n       - by blizzz";
+    "  Version 0.9\r\n       - by blizzz";
             // 
             // buttonLoadImage
             // 

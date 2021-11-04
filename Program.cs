@@ -665,7 +665,7 @@ namespace SGB2_Border_Injector
             try
             {
                 // check if there's already a jump to 87:F270, if not, add it
-                fs.Seek(0x50B1, SeekOrigin.Begin);
+                fs.Seek(0x50B7, SeekOrigin.Begin);
                 if (fs.ReadByte() != 0x5C)
                 {
                     // move button initialization ahead
@@ -675,7 +675,7 @@ namespace SGB2_Border_Injector
                     fs.Seek(0x50AB, SeekOrigin.Begin);
                     fs.Write(buttonConfig, 0, 12);
                     // then jump to custom code at 87:F270
-                    fs.Write(new byte[] { 0x5C, 0x70, 0xF2, 0x87, 0xEA, 0xEA }, 0, 6); // jml $87f270, nop slide
+                    fs.Write(new byte[] { 0x5C, 0x70, 0xF2, 0x87, 0xEA, 0xEA }, 0, 6); // jml $87f270
                 }
 
                 fs.Seek(0x03F270, SeekOrigin.Begin);

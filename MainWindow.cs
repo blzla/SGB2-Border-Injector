@@ -70,7 +70,7 @@ namespace SGB2_Border_Injector
             Application.UseWaitCursor = true;
             textBoxOutput.Text = string.Empty;
             
-            // launch injection process in separate thread to keep window reactive
+            // launch injection process in separate thread to keep window responsive
             string sgb2_rom = textBoxFilename.Text;
             string border_file = openFileDialog.FileName;
             int border = comboBoxSlot.SelectedIndex + 3;
