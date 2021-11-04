@@ -29,6 +29,8 @@ namespace SGB2_Border_Injector
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.textBoxFilename = new System.Windows.Forms.TextBox();
             this.buttonFileSelect = new System.Windows.Forms.Button();
             this.textBoxOutput = new System.Windows.Forms.TextBox();
@@ -46,6 +48,7 @@ namespace SGB2_Border_Injector
             this.groupBoxSlot = new System.Windows.Forms.GroupBox();
             this.checkBoxExternalPalettes = new System.Windows.Forms.CheckBox();
             this.checkBoxBackup = new System.Windows.Forms.CheckBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBoxImage.SuspendLayout();
@@ -83,10 +86,10 @@ namespace SGB2_Border_Injector
             this.textBoxOutput.Name = "textBoxOutput";
             this.textBoxOutput.ReadOnly = true;
             this.textBoxOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxOutput.Size = new System.Drawing.Size(527, 255);
+            this.textBoxOutput.Size = new System.Drawing.Size(527, 152);
             this.textBoxOutput.TabIndex = 0;
-            this.textBoxOutput.Text = "Image requirements: 256 x 224 px, with a maximum of 3 15 color palettes.\r\n\r\n     " +
-    "Version 0.1\r\n       - by blizzz";
+            this.textBoxOutput.Text = "Image requirements: 256 × 224 px, with a maximum of 3 × 15 color palettes.\r\n\r\n   " +
+    "  Version 0.1\r\n       - by blizzz";
             // 
             // buttonLoadImage
             // 
@@ -153,7 +156,7 @@ namespace SGB2_Border_Injector
             this.groupBoxOutput.Controls.Add(this.textBoxOutput);
             this.groupBoxOutput.Location = new System.Drawing.Point(11, 283);
             this.groupBoxOutput.Name = "groupBoxOutput";
-            this.groupBoxOutput.Size = new System.Drawing.Size(560, 300);
+            this.groupBoxOutput.Size = new System.Drawing.Size(560, 192);
             this.groupBoxOutput.TabIndex = 6;
             this.groupBoxOutput.TabStop = false;
             this.groupBoxOutput.Text = "Output";
@@ -208,28 +211,31 @@ namespace SGB2_Border_Injector
             // checkBoxExternalPalettes
             // 
             this.checkBoxExternalPalettes.AutoSize = true;
-            this.checkBoxExternalPalettes.Location = new System.Drawing.Point(419, 255);
+            this.checkBoxExternalPalettes.Location = new System.Drawing.Point(423, 255);
             this.checkBoxExternalPalettes.Name = "checkBoxExternalPalettes";
-            this.checkBoxExternalPalettes.Size = new System.Drawing.Size(148, 17);
+            this.checkBoxExternalPalettes.Size = new System.Drawing.Size(132, 17);
             this.checkBoxExternalPalettes.TabIndex = 5;
-            this.checkBoxExternalPalettes.Text = "Load External palettes.bin";
+            this.checkBoxExternalPalettes.Text = "Load External Palettes";
+            this.toolTip.SetToolTip(this.checkBoxExternalPalettes, "Load palettes from palettes.bin.\r\n3 x 16 BGR15 colors = 96 bytes, first color in " +
+        "each palette is ignored.");
             this.checkBoxExternalPalettes.UseVisualStyleBackColor = true;
             // 
             // checkBoxBackup
             // 
             this.checkBoxBackup.AutoSize = true;
-            this.checkBoxBackup.Location = new System.Drawing.Point(329, 255);
+            this.checkBoxBackup.Location = new System.Drawing.Point(333, 255);
             this.checkBoxBackup.Name = "checkBoxBackup";
             this.checkBoxBackup.Size = new System.Drawing.Size(82, 17);
             this.checkBoxBackup.TabIndex = 4;
             this.checkBoxBackup.Text = "Backup File";
+            this.toolTip.SetToolTip(this.checkBoxBackup, "Create .sfc.bak copy before changing file.");
             this.checkBoxBackup.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(586, 597);
+            this.ClientSize = new System.Drawing.Size(586, 486);
             this.Controls.Add(this.checkBoxBackup);
             this.Controls.Add(this.checkBoxExternalPalettes);
             this.Controls.Add(this.panel1);
@@ -239,8 +245,9 @@ namespace SGB2_Border_Injector
             this.Controls.Add(this.groupBoxFile);
             this.Controls.Add(this.groupBoxImage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximumSize = new System.Drawing.Size(602, 636);
-            this.MinimumSize = new System.Drawing.Size(602, 636);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(602, 525);
+            this.MinimumSize = new System.Drawing.Size(602, 525);
             this.Name = "MainWindow";
             this.Text = "Super Game Boy 2 Border Injector";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
@@ -275,5 +282,6 @@ namespace SGB2_Border_Injector
         private System.Windows.Forms.GroupBox groupBoxSlot;
         private System.Windows.Forms.CheckBox checkBoxBackup;
         private System.Windows.Forms.CheckBox checkBoxExternalPalettes;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

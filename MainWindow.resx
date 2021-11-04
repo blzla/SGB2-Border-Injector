@@ -123,4 +123,87 @@
   <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>146, 17</value>
   </metadata>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>279, 17</value>
+  </metadata>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>279, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAICAAAAEAIACoEAAAFgAAACgAAAAgAAAAQAAAAAEAIAAAAAAAABAAABMLAAATCwAAAAAAAAAA
+        AAD4AAD/+AAA//gAAP9g6Pj/YOj4//gAAP/4AAD/YOj4//gAAP8AcPj/YOj4//gAAP/4AAD/AHD4//j4
+        +P/4+Pj/YOj4/2Do+P/4+Pj/AAAA//gAAP9g6Pj/YOj4//gAAP/4AAD/AAAA//iAAP/4gAD/YOj4/wAA
+        +P9g6Pj/+AAA//iAAP/4gAD/+IAA/2Do+P/4gAD/AAAA//iAAP9g6Pj/YOj4//iAAP9g6Pj/+IAA//iA
+        AP8AAAD/MLD4//j4+P/4+Pj/AAAA//j4+P/4gAD/AAAA//iAAP9g6Pj/+IAA/wAAAP8AAPj/YOj4//iA
+        AP9g6Pj/YOj4/wBw+P/4gAD/YOj4/wAAAP/4AAD/+AAA//gAAP/4AAD/AHD4/2Do+P9g6Pj/+AAA/2Do
+        +P/4AAD/YOj4/wAAAP8AcPj/+Pig/yAw+P8AcPj/AHD4//gAAP/4AAD/MLD4//gAAP/4AAD/+AAA/2Do
+        +P8AAAD/YOj4//iAAP/4gAD/+IAA//gAAP/4gAD/+IAA//iAAP/4gAD/AAAA//iAAP/4gAD/YOj4/wBw
+        +P8AcPj/YOj4//iAAP/4gAD/+IAA/wBw+P8AAAD/AHD4/wAAAP8ICHD/+IAA//iAAP9g6Pj/MLD4/wAA
+        AP/4gAD/YOj4/2Do+P9g6Pj/+IAA//hAAP/4AAD/+IAA//gAAP/4AAD/AAAA/2Do+P8AcPj/+AAA//gA
+        AP8AAAD/+AAA/2Do+P9g6Pj/YOj4//gAAP/4AAD/+Pj4/wBw+P8AcPj/AHD4/wAAAP/4AAD/YOj4/2Do
+        +P9g6Pj/+AAA//gAAP/4+Pj/YOj4/2Do+P8AAAD/+Pj4/zCw+P/4AAD/+IAA/9gAiP/4UOj/YOj4/wAA
+        AP9g6Pj/+Pj4//j4+P/4+Pj/+Pj4//j4+P/4+Pj/+Pj4//j4+P8AAAD/MDAw/wAAAP/4+Pj/+Pj4//j4
+        +P/4+Pj/+Pj4//j4+P/4+Pj/+Pj4/wAAAP8ICHD/YOj4//iAAP8AAAD/MLD4//gA+P/4AAD/MDAw//j4
+        +P/4+Pj/+AD4/2Do+P/O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///2Do+P8AcPj/AAAA//gA+P8AcPj/+AAA//iA
+        AP/4UOj/+Pj4/wAAAP/4UOj/YOj4/87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///YOj4//gA+P/YAIj/+AAA//gA
+        AP8A+AD/+IAA/zAwMP8AAAD/YOj4/wAAAP9g6Pj/zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v//9g6Pj/2ACI//gA
+        AP8A+AD/APj4/wCA+P/4AAD/AAAA/wAAAP8AAAD/MDAw/2Do+P/O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///2Do
+        +P8A+AD/AAAA/wD4+P8AgPj/AAD4//iAAP8wMDD/+FDo//hQ6P/4UOj/YOj4/87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///YOj4/wBw+P9g6Pj/AAD4/wAAAP/4gAD/+AAA/wAAAP/4UOj/+FDo//hQ6P9g6Pj/zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v//9g6Pj/AAD4/wAA+P/4AAD/+AAA//gAAP/4gAD/+IAA/wAAAP/YAIj/+FDo/2Do
+        +P/O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///2Do+P/4gAD/+IAA//iAAP9g6Pj/AAAA//gAAP/4AAD/+AAA/wAA
+        AP8AAAD/YOj4/87v///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///YOj4//gAAP/4AAD/+AAA//gAAP9g6Pj/+IAA//iA
+        AP/4gAD/+IAA//iAAP9g6Pj/zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v//9g6Pj/AAAA//iAAP/4gAD/AAAA/2Do
+        +P/4AAD/+AAA//gAAP9g6Pj/+AAA/2Do+P/O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///2Do+P/4AAD/+AAA//gA
+        AP/4AAD/+AAA/2Do+P/4AAD/+AAA/2Do+P/4AAD/YOj4/87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///YOj4//gA
+        AP/4AAD/+AAA//gAAP/4AAD/YOj4//iAAP/4gAD/+IAA//iAAP9g6Pj/zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        //9g6Pj/AAAA//iAAP/4gAD/+IAA//iAAP9g6Pj/CAhw//gAAP/4AAD/+AAA/2Do+P/O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///2Do+P/4AAD/+AAA//gAAP/4AAD/+AAA/2Do+P/4gAD/+IAA//iAAP/4gAD/YOj4/87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///YOj4//iAAP/4gAD/+IAA//iAAP/4gAD/AAAA//gAAP/4AAD/+AAA//gA
+        +P9g6Pj/zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v//9g6Pj/+AAA/2Do+P9g6Pj/+AAA//gAAP/4gAD/+IAA//gA
+        +P/4APj/2ACI/2Do+P/O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///2Do+P/4gAD/+IAA//iAAP/4gAD/+IAA/wAA
+        AP/4APj/2ACI//gAAP8A+AD/YOj4/87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///YOj4//gAAP/4AAD/+AAA//gA
+        AP/4AAD/2ACI//gAAP/4AAD/APgA/wD4+P9g6Pj/zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v//9g6Pj/+AAA//iA
+        AP/4AAD/+IAA//gAAP/4AAD/APgA/wD4+P8AgPj/AID4/2Do+P/O7///zu///87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///2Do
+        +P/4AAD/+IAA//gAAP/4gAD/AHD4/wD4+P8A+Pj/AID4/2Do+P/4AAD/YOj4/87v///O7///zu///87v
+        ///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v///O7///zu///87v
+        ///O7///YOj4//gAAP9g6Pj/+AAA/wAAAP9g6Pj/AID4/wAA+P8AAAD/YOj4/2Do+P9g6Pj/AHD4/wBw
+        +P8AcPj/AHD4/wBw+P8AcPj/AHD4/wBw+P8AcPj/AHD4/wBw+P8AcPj/sDD4/wBw+P8AcPj/AHD4/wBw
+        +P8AcPj/AHD4/wBw+P9g6Pj/YOj4/2Do+P/4gAD/+IAA//iAAP8AAPj/+AAA/2Do+P9g6Pj/YOj4//gA
+        AP/4AAD/+AAA//gAAP/4AAD/AAAA/2Do+P8ICHD/AAAA/wAAAP8AAAD/0JD4/zAwMP/QkPj/AAAA/wgI
+        cP/4AAD/+AAA//gAAP/4AAD/+AAA//gAAP9g6Pj/YOj4/2Do+P/4AAD/+AAA//iAAP/4gAD/+IAA/2Do
+        +P8wsPj/AAAA/2Do+P8wsPj/YOj4/zCw+P8ICHD/AHD4/zCw+P8wsPj/IDD4/9CQ+P8AAAD/0JD4/9CQ
+        +P+wMPj/YOj4/wBw+P9g6Pj/MLD4/2Do+P8wsPj/YOj4/wBw+P9g6Pj/+IAA//iAAP/4gAD/YOj4/wAA
+        AP/4AAD/MLD4//gAAP9g6Pj/YOj4/zCw+P9g6Pj/MLD4/zCw+P8ICHD/YOj4/2Do+P/QkPj/0JD4/9CQ
+        +P/QkPj/0JD4/7Aw+P8ICHD/CAhw/2Do+P8wsPj/YOj4/zCw+P8AAAD/+AAA/2Do+P/4AAD/YOj4/wAA
+        AP/4gAD/+IAA//iAAP/4gAD/+IAA/2Do+P9g6Pj/MLD4/2Do+P8wsPj/MLD4/wgIcP8wsPj/YOj4/2Do
+        +P8wMDD/AAAA/9CQ+P/QkPj/AAAA/wBw+P8ICHD/YOj4/zCw+P9g6Pj/MLD4/2Do+P/4gAD/+IAA//iA
+        AP/4gAD/+IAA//gAAP/4AAD/+AAA//gAAP/4AAD/+AAA//gAAP/4AAD/+AAA//gAAP8AcPj/YOj4/zCw
+        +P8AAAD/AAAA/wAAAP/QkPj/0JD4/9CQ+P8AAAD/YOj4/wAAAP/4AAD/+AAA//gAAP/4AAD/+AAA//gA
+        AP/4AAD/+AAA//gAAP/4AAD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+</value>
+  </data>
 </root>
