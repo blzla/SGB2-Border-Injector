@@ -21,16 +21,8 @@ namespace SGB2_Border_Injector
             ("Chess Arena", 0x054800, new (int, int)[] { (0x050000, 0x1000), (0x055800, 0x2000) }, 0x3000, 0x57880, new (int, byte)[] { (0x43333, 0x50), (0x4334E, 0x10), (0x43351, 0x08), (0x43354, 0xD8), (0x4336F, 0x10), (0x43372, 0xE8), (0x4338A, 0x08), (0x4338D, 0x3C), (0x43390, 0xC8) }, 0x061D40)
         };
 
-        private static readonly byte[] border_icon_goose = new byte[] {
-            0x7F, 0x80, 0x7E, 0xBF, 0x7C, 0xBF, 0x78, 0xBF, 0x79, 0xBE, 0x78, 0xBF, 0x7C, 0xBF, 0x7E, 0xBF,
-            0x00, 0x00, 0x00, 0x3E, 0x00, 0x3C, 0x00, 0x38, 0x00, 0x38, 0x00, 0x38, 0x00, 0x3C, 0x00, 0x3E,
-            0xFB, 0x04, 0x3B, 0xF4, 0x1B, 0xF4, 0x1B, 0xF4, 0x1B, 0x94, 0x0B, 0x04, 0x0B, 0x84, 0x0B, 0xC4,
-            0x00, 0x00, 0x00, 0x30, 0x00, 0x10, 0x00, 0x10, 0x60, 0x10, 0xF0, 0x00, 0x70, 0x00, 0x30, 0x00,
-            0x6F, 0xBF, 0x46, 0xBF, 0x40, 0xBF, 0x44, 0xBB, 0x63, 0xBC, 0x70, 0xBF, 0x78, 0xBF, 0x7F, 0x80,
-            0x00, 0x2F, 0x00, 0x06, 0x00, 0x00, 0x04, 0x00, 0x03, 0x20, 0x00, 0x30, 0x00, 0x38, 0x00, 0x00,
-            0x1B, 0xF4, 0x0B, 0xF4, 0x0B, 0xF4, 0x0B, 0xF4, 0x0B, 0xF4, 0x1B, 0xF4, 0x3B, 0xF4, 0xFB, 0x04,
-            0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x30, 0x00, 0x00
-        };
+        internal static readonly List<Bitmap> icons = new List<Bitmap>();
+        private static readonly ushort[] icon_palette = new ushort[] { 0x0000, 0x7FFF, 0x5F3D, 0x1A3F, 0x6739, 0x2E34, 0x37FF, 0x37ED, 0x4A5F, 0x7ED6, 0x116E, 0x2217, 0x3A99, 0x2E58, 0x635C };
 
         private static MainWindow window = null;
 
@@ -39,11 +31,12 @@ namespace SGB2_Border_Injector
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            icons.Add(Properties.Resources.icon_goose);
             Application.Run(window = new MainWindow());
         }
 
         // Inject custom border main function
-        internal static bool InjectCustomBorder(string sgb2_rom, string border_file, int border, bool external_palettes, bool backup)
+        internal static bool InjectCustomBorder(string sgb2_rom, string border_file, int border, int icon, bool external_palettes, bool backup)
         {
             if (string.IsNullOrEmpty(sgb2_rom) || string.IsNullOrEmpty(border_file) || !(border >= 3 && border <= 9))
             {
@@ -93,9 +86,7 @@ namespace SGB2_Border_Injector
             // start modifying rom file
             WriteLine();
             var (success, msg) = ValidateRomFile(sgb2_rom);
-            if (success)
-                WriteLine($"SGB2 rom file: Correct");
-            else
+            if (!success)
                 WriteLine($"[ERROR] SGB2 rom error: {msg}");
 
             if (backup && success)
@@ -103,20 +94,21 @@ namespace SGB2_Border_Injector
                     WriteLine($"Created backup file: {(sgb2_rom.Substring(sgb2_rom.LastIndexOf('\\') + 1) + ".bak")}");
                 else
                     WriteLine("[ERROR] Failed to create backup file.");
-            
+
             // file will only be modified if all previous steps were successful
             if (success)
             {
                 using (FileStream fs = new FileStream(sgb2_rom, FileMode.Open, FileAccess.ReadWrite))
                 {
-                    WriteLine("Begin modifying file.");
                     // write data to file
+                    WriteLine("Begin modifying file.");
                     success &= SaveTilemap(fs, tilemap, border);
                     success &= SaveTileset(fs, tileset, border);
                     success &= SavePalettes(fs, ConvertPalettesToBytes(palette_sets), border);
-                    success &= SaveBorderIcon(fs, border_icon_goose, border);
-                    WriteLine($"Wrote tilemap, tileset, palettes, icon: {(success ? "Done" : "Error")}"); 
-                    
+                    if (icon >= 0 && icon < icons.Count)
+                        success = SaveBorderIcon(fs, ConvertIconToBytes(icons[icon]), border);
+                    WriteLine($"Wrote tilemap, tileset, palettes{(icon >= 0 ? ", icon" : "")}: {(success ? "Done" : "Error")}");
+
                     // change memory transfers to allow for bigger tilesets
                     success &= ApplyDMAPatches(fs, border);
                     // remove screensaver, since it would glitch out
@@ -311,7 +303,7 @@ namespace SGB2_Border_Injector
             return (7 - y) * 8 + x;
         }
 
-        private static int IsFlipped(Func<int,int,int> mapping, List<(int[] pixels, HashSet<int>, List<(int, int)>)> tiles_data, int[] tile)
+        private static int IsFlipped(Func<int, int, int> mapping, List<(int[] pixels, HashSet<int>, List<(int, int)>)> tiles_data, int[] tile)
         {
             int flip = -1;
 
@@ -460,6 +452,7 @@ namespace SGB2_Border_Injector
 
         // build snes 4 bpp tileset by replacing the colors with the offset of their color in the palette
         // and distribute the bits for every pixel over 4 bytes.
+        // the tileset could be further reduced by detecting tiles that are identical, except for the palette they use (not implemented)
         private static byte[] BuildTileset(List<(int[] pixels, HashSet<int> colors, List<(int, int)>)> tiles_data, List<(int[], int, bool, bool, List<(int, int)>)> tiles_flipped_data, HashSet<int>[] palette_sets)
         {
             byte[] tileset = new byte[(tiles_data.Count + 1) * 32];
@@ -553,7 +546,7 @@ namespace SGB2_Border_Injector
         private static string FitsInSlots(int tileset_length)
         {
             List<int> slots = new List<int>();
-            for(int i = 2; i < border_data.Length; i++)
+            for (int i = 2; i < border_data.Length; i++)
             {
                 if (border_data[i].tileset_maxsize >= tileset_length)
                     slots.Add(i + 1);
@@ -561,7 +554,7 @@ namespace SGB2_Border_Injector
 
             return slots.Count > 0 ? string.Join(", ", slots) : "None";
         }
-        
+
         // copy rom file as backup, overwrites exisisting .bak file
         private static bool BackupFile(string file_name)
         {
@@ -577,7 +570,7 @@ namespace SGB2_Border_Injector
         // inject tilemap at the correct offset in the rom file
         private static bool SaveTilemap(FileStream fs, byte[] tilemap, int border)
         {
-           try
+            try
             {
                 fs.Seek(border_data[border - 1].tilemap, SeekOrigin.Begin);
                 fs.Write(tilemap, 0, tilemap.Length);
@@ -735,6 +728,73 @@ namespace SGB2_Border_Injector
             }
             catch { }
             return false;
+        }
+
+        // Load image from file and add it to icons
+        internal static bool LoadIcon(string file_name)
+        {
+            try
+            {
+                Bitmap icon = new Bitmap(file_name);
+                if (icon.Width == 10 && icon.Height == 14)
+                {
+                    Bitmap full_icon = new Bitmap(16, 16);
+                    Graphics g = Graphics.FromImage(full_icon);
+                    g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+                    g.DrawImageUnscaledAndClipped(icons[0], new Rectangle(2, 1, 10, 14));
+                    g.DrawImageUnscaledAndClipped(icon, new Rectangle());
+                    icon = full_icon;
+                }
+                else if(icon.Width != 16 || icon.Height != 16)
+                {
+                    return false;
+                }
+                
+                for (int x = 0; x < 16; x++)
+                {
+                    for (int y = 0; y < 16; y++)
+                    {
+                        Color c = icon.GetPixel(x, y);
+                        if (!icon_palette.Contains((ushort) ConvertRGBtoSFC(c.R, c.G, c.B)))
+                            return false;
+                    }
+                }
+                
+                icons.Add(icon);
+                return true;
+            }
+            catch { }
+
+            return false;
+        }
+
+        // Convert icon bitmap to 4bpp tiles
+        private static byte[] ConvertIconToBytes(Bitmap icon) {
+            byte[] icon_bytes = new byte[128];
+
+            if (icon.Width != 16 || icon.Height != 16)
+                return icon_bytes;
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int x = 0; x < 8; x++)
+                {
+                    for (int y = 0; y < 8; y++)
+                    {
+                        Color c = icon.GetPixel((7 - x) + 8 * (i % 2), y + 8 * (i / 2));
+                        byte color_index = (byte)(Array.IndexOf(icon_palette, (ushort) ConvertRGBtoSFC(c.R, c.G, c.B)) + 1);
+                        icon_bytes[32 * i + 2 * y] = (byte)(icon_bytes[32 * i + 2 * y] | (color_index & 0b0001) << x);
+                        icon_bytes[32 * i + 2 * y + 1] = (byte)(icon_bytes[32 * i + 2 * y + 1] | ((color_index & 0b0010) >> 1) << x);
+                        icon_bytes[32 * i + 2 * y + 16] = (byte)(icon_bytes[32 * i + 2 * y + 16] | ((color_index & 0b0100) >> 2) << x);
+                        icon_bytes[32 * i + 2 * y + 17] = (byte)(icon_bytes[32 * i + 2 * y + 17] | ((color_index & 0b1000) >> 3) << x);
+                    }
+                }
+            }
+
+#if DEBUG
+            File.WriteAllBytes("icon.bin", icon_bytes);
+#endif
+            return icon_bytes;
         }
 
         // write line to text box in the gui window

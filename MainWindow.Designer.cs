@@ -42,20 +42,22 @@ namespace SGB2_Border_Injector
             this.groupBoxImage = new System.Windows.Forms.GroupBox();
             this.groupBoxFile = new System.Windows.Forms.GroupBox();
             this.groupBoxOutput = new System.Windows.Forms.GroupBox();
-            this.groupBoxInject = new System.Windows.Forms.GroupBox();
             this.buttonInject = new System.Windows.Forms.Button();
             this.comboBoxSlot = new System.Windows.Forms.ComboBox();
             this.groupBoxSlot = new System.Windows.Forms.GroupBox();
+            this.buttonLoadIcon = new System.Windows.Forms.Button();
+            this.comboBoxIcon = new System.Windows.Forms.ComboBox();
             this.checkBoxExternalPalettes = new System.Windows.Forms.CheckBox();
             this.checkBoxBackup = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBoxImage.SuspendLayout();
             this.groupBoxFile.SuspendLayout();
             this.groupBoxOutput.SuspendLayout();
-            this.groupBoxInject.SuspendLayout();
             this.groupBoxSlot.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxFilename
@@ -89,7 +91,7 @@ namespace SGB2_Border_Injector
             this.textBoxOutput.Size = new System.Drawing.Size(527, 152);
             this.textBoxOutput.TabIndex = 0;
             this.textBoxOutput.Text = "Image requirements: 256 × 224 px, with a maximum of 3 × 15 color palettes.\r\n\r\n   " +
-    "  Version 0.9\r\n       - by blizzz";
+    "  Version 0.91\r\n       - by blizzz";
             // 
             // buttonLoadImage
             // 
@@ -154,30 +156,20 @@ namespace SGB2_Border_Injector
             // groupBoxOutput
             // 
             this.groupBoxOutput.Controls.Add(this.textBoxOutput);
-            this.groupBoxOutput.Location = new System.Drawing.Point(11, 283);
+            this.groupBoxOutput.Location = new System.Drawing.Point(11, 286);
             this.groupBoxOutput.Name = "groupBoxOutput";
             this.groupBoxOutput.Size = new System.Drawing.Size(560, 192);
             this.groupBoxOutput.TabIndex = 6;
             this.groupBoxOutput.TabStop = false;
             this.groupBoxOutput.Text = "Output";
             // 
-            // groupBoxInject
-            // 
-            this.groupBoxInject.Controls.Add(this.buttonInject);
-            this.groupBoxInject.Location = new System.Drawing.Point(12, 214);
-            this.groupBoxInject.Name = "groupBoxInject";
-            this.groupBoxInject.Size = new System.Drawing.Size(290, 63);
-            this.groupBoxInject.TabIndex = 3;
-            this.groupBoxInject.TabStop = false;
-            this.groupBoxInject.Text = "Inject Border";
-            // 
             // buttonInject
             // 
-            this.buttonInject.Location = new System.Drawing.Point(16, 22);
+            this.buttonInject.Location = new System.Drawing.Point(27, 251);
             this.buttonInject.Name = "buttonInject";
             this.buttonInject.Size = new System.Drawing.Size(258, 23);
-            this.buttonInject.TabIndex = 0;
-            this.buttonInject.Text = "Inject";
+            this.buttonInject.TabIndex = 3;
+            this.buttonInject.Text = "Inject Border";
             this.buttonInject.UseVisualStyleBackColor = true;
             this.buttonInject.Click += new System.EventHandler(this.buttonInject_Click);
             // 
@@ -200,13 +192,40 @@ namespace SGB2_Border_Injector
             // 
             // groupBoxSlot
             // 
+            this.groupBoxSlot.Controls.Add(this.pictureBoxIcon);
+            this.groupBoxSlot.Controls.Add(this.buttonLoadIcon);
+            this.groupBoxSlot.Controls.Add(this.comboBoxIcon);
             this.groupBoxSlot.Controls.Add(this.comboBoxSlot);
             this.groupBoxSlot.Location = new System.Drawing.Point(12, 145);
             this.groupBoxSlot.Name = "groupBoxSlot";
-            this.groupBoxSlot.Size = new System.Drawing.Size(290, 63);
+            this.groupBoxSlot.Size = new System.Drawing.Size(290, 89);
             this.groupBoxSlot.TabIndex = 2;
             this.groupBoxSlot.TabStop = false;
             this.groupBoxSlot.Text = "Select Border Slot";
+            // 
+            // buttonLoadIcon
+            // 
+            this.buttonLoadIcon.Location = new System.Drawing.Point(199, 51);
+            this.buttonLoadIcon.Name = "buttonLoadIcon";
+            this.buttonLoadIcon.Size = new System.Drawing.Size(75, 23);
+            this.buttonLoadIcon.TabIndex = 2;
+            this.buttonLoadIcon.Text = "Add Icon";
+            this.toolTip.SetToolTip(this.buttonLoadIcon, "Add custom icon. See readme for more information.");
+            this.buttonLoadIcon.UseVisualStyleBackColor = true;
+            this.buttonLoadIcon.Click += new System.EventHandler(this.buttonLoadIcon_Click);
+            // 
+            // comboBoxIcon
+            // 
+            this.comboBoxIcon.FormattingEnabled = true;
+            this.comboBoxIcon.Items.AddRange(new object[] {
+            "Don\'t change icon",
+            "Icon: Goose"});
+            this.comboBoxIcon.Location = new System.Drawing.Point(16, 52);
+            this.comboBoxIcon.Name = "comboBoxIcon";
+            this.comboBoxIcon.Size = new System.Drawing.Size(162, 21);
+            this.comboBoxIcon.TabIndex = 1;
+            this.comboBoxIcon.Text = "Icon: Goose";
+            this.comboBoxIcon.SelectedIndexChanged += new System.EventHandler(this.comboBoxIcon_SelectedIndexChanged);
             // 
             // checkBoxExternalPalettes
             // 
@@ -231,23 +250,36 @@ namespace SGB2_Border_Injector
             this.toolTip.SetToolTip(this.checkBoxBackup, "Create .sfc.bak copy before changing file.");
             this.checkBoxBackup.UseVisualStyleBackColor = true;
             // 
+            // pictureBoxIcon
+            // 
+            this.pictureBoxIcon.Image = global::SGB2_Border_Injector.Properties.Resources.icon_goose;
+            this.pictureBoxIcon.InitialImage = null;
+            this.pictureBoxIcon.Location = new System.Drawing.Point(183, 55);
+            this.pictureBoxIcon.Name = "pictureBoxIcon";
+            this.pictureBoxIcon.Size = new System.Drawing.Size(12, 16);
+            this.pictureBoxIcon.TabIndex = 8;
+            this.pictureBoxIcon.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBoxIcon, "Click to toggle between active and inactive display.");
+            this.pictureBoxIcon.Click += new System.EventHandler(this.pictureBoxIcon_Click);
+            this.pictureBoxIcon.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxIcon_Paint);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(586, 486);
+            this.ClientSize = new System.Drawing.Size(584, 491);
+            this.Controls.Add(this.buttonInject);
             this.Controls.Add(this.checkBoxBackup);
             this.Controls.Add(this.checkBoxExternalPalettes);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBoxSlot);
-            this.Controls.Add(this.groupBoxInject);
             this.Controls.Add(this.groupBoxOutput);
             this.Controls.Add(this.groupBoxFile);
             this.Controls.Add(this.groupBoxImage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(602, 525);
-            this.MinimumSize = new System.Drawing.Size(602, 525);
+            this.MaximumSize = new System.Drawing.Size(600, 530);
+            this.MinimumSize = new System.Drawing.Size(600, 530);
             this.Name = "MainWindow";
             this.Text = "Super Game Boy 2 Border Injector";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
@@ -257,8 +289,8 @@ namespace SGB2_Border_Injector
             this.groupBoxFile.PerformLayout();
             this.groupBoxOutput.ResumeLayout(false);
             this.groupBoxOutput.PerformLayout();
-            this.groupBoxInject.ResumeLayout(false);
             this.groupBoxSlot.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,7 +306,6 @@ namespace SGB2_Border_Injector
         private System.Windows.Forms.GroupBox groupBoxImage;
         private System.Windows.Forms.GroupBox groupBoxFile;
         private System.Windows.Forms.GroupBox groupBoxOutput;
-        private System.Windows.Forms.GroupBox groupBoxInject;
         private System.Windows.Forms.Button buttonInject;
         private System.Windows.Forms.ComboBox comboBoxSlot;
         internal System.Windows.Forms.TextBox textBoxOutput;
@@ -283,5 +314,8 @@ namespace SGB2_Border_Injector
         private System.Windows.Forms.CheckBox checkBoxBackup;
         private System.Windows.Forms.CheckBox checkBoxExternalPalettes;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button buttonLoadIcon;
+        internal System.Windows.Forms.ComboBox comboBoxIcon;
+        private System.Windows.Forms.PictureBox pictureBoxIcon;
     }
 }
