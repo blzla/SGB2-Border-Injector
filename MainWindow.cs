@@ -11,6 +11,7 @@ namespace SGB2_Border_Injector
         internal WriteLine WriteLineHandler;
         internal ThreadDone ThreadDoneHandler;
 
+        private string border_file = "";
         private bool invert_icon = false;
 
         public MainWindow()
@@ -56,11 +57,13 @@ namespace SGB2_Border_Injector
                     if (img != null)
                     {
                         pictureBox.Image = img;
+                        border_file = openFileDialog.FileName;
                     }
                     else
                     {
                         pictureBox.Image = null;
                         textBoxOutput.Text = "Error loading image.";
+                        border_file = "";
                     }
                 }
                 catch { }
@@ -102,7 +105,6 @@ namespace SGB2_Border_Injector
             
             // launch injection process in separate thread to keep window responsive
             string sgb2_rom = textBoxFilename.Text;
-            string border_file = openFileDialog.FileName;
             int border = comboBoxSlot.SelectedIndex + 3;
             int icon = comboBoxIcon.SelectedIndex - 1;
             bool external_palettes = checkBoxExternalPalettes.Checked;
