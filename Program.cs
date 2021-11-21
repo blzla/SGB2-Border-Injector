@@ -741,8 +741,8 @@ namespace SGB2_Border_Injector
                     Bitmap full_icon = new Bitmap(16, 16);
                     Graphics g = Graphics.FromImage(full_icon);
                     g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
-                    g.DrawImageUnscaledAndClipped(icons[0], new Rectangle(2, 1, 10, 14));
-                    g.DrawImageUnscaledAndClipped(icon, new Rectangle());
+                    g.DrawImageUnscaledAndClipped(icons[0], new Rectangle(0, 0, 16, 16));
+                    g.DrawImageUnscaledAndClipped(icon, new Rectangle(2, 1, 10, 14));
                     icon = full_icon;
                 }
                 else if(icon.Width != 16 || icon.Height != 16)
