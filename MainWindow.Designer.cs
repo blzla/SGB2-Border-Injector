@@ -45,12 +45,12 @@ namespace SGB2_Border_Injector
             this.buttonInject = new System.Windows.Forms.Button();
             this.comboBoxSlot = new System.Windows.Forms.ComboBox();
             this.groupBoxSlot = new System.Windows.Forms.GroupBox();
+            this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
             this.buttonLoadIcon = new System.Windows.Forms.Button();
             this.comboBoxIcon = new System.Windows.Forms.ComboBox();
             this.checkBoxExternalPalettes = new System.Windows.Forms.CheckBox();
             this.checkBoxBackup = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBoxImage.SuspendLayout();
@@ -91,7 +91,7 @@ namespace SGB2_Border_Injector
             this.textBoxOutput.Size = new System.Drawing.Size(527, 152);
             this.textBoxOutput.TabIndex = 0;
             this.textBoxOutput.Text = "Image requirements: 256 × 224 px, with a maximum of 3 × 15 color palettes.\r\n\r\n   " +
-    "  Version 0.91\r\n       - by blizzz";
+    "  Version 0.92\r\n       - by blizzz";
             // 
             // buttonLoadImage
             // 
@@ -203,6 +203,19 @@ namespace SGB2_Border_Injector
             this.groupBoxSlot.TabStop = false;
             this.groupBoxSlot.Text = "Select Border Slot";
             // 
+            // pictureBoxIcon
+            // 
+            this.pictureBoxIcon.Image = global::SGB2_Border_Injector.Properties.Resources.icon_goose;
+            this.pictureBoxIcon.InitialImage = null;
+            this.pictureBoxIcon.Location = new System.Drawing.Point(183, 55);
+            this.pictureBoxIcon.Name = "pictureBoxIcon";
+            this.pictureBoxIcon.Size = new System.Drawing.Size(12, 16);
+            this.pictureBoxIcon.TabIndex = 8;
+            this.pictureBoxIcon.TabStop = false;
+            this.toolTip.SetToolTip(this.pictureBoxIcon, "Click to toggle between active and inactive display.");
+            this.pictureBoxIcon.Click += new System.EventHandler(this.pictureBoxIcon_Click);
+            this.pictureBoxIcon.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxIcon_Paint);
+            // 
             // buttonLoadIcon
             // 
             this.buttonLoadIcon.Location = new System.Drawing.Point(199, 51);
@@ -249,19 +262,6 @@ namespace SGB2_Border_Injector
             this.checkBoxBackup.Text = "Backup File";
             this.toolTip.SetToolTip(this.checkBoxBackup, "Create .sfc.bak copy before changing file.");
             this.checkBoxBackup.UseVisualStyleBackColor = true;
-            // 
-            // pictureBoxIcon
-            // 
-            this.pictureBoxIcon.Image = global::SGB2_Border_Injector.Properties.Resources.icon_goose;
-            this.pictureBoxIcon.InitialImage = null;
-            this.pictureBoxIcon.Location = new System.Drawing.Point(183, 55);
-            this.pictureBoxIcon.Name = "pictureBoxIcon";
-            this.pictureBoxIcon.Size = new System.Drawing.Size(12, 16);
-            this.pictureBoxIcon.TabIndex = 8;
-            this.pictureBoxIcon.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBoxIcon, "Click to toggle between active and inactive display.");
-            this.pictureBoxIcon.Click += new System.EventHandler(this.pictureBoxIcon_Click);
-            this.pictureBoxIcon.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxIcon_Paint);
             // 
             // MainWindow
             // 

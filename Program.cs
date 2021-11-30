@@ -9,16 +9,16 @@ namespace SGB2_Border_Injector
 {
     class Program
     {
-        private static readonly (string name, int tilemap, (int addr, int chunk_length)[] tileset_chunks, int tileset_maxsize, int palettes, (int addr, byte value)[] patches, int icon)[] border_data = new (string, int, (int, int)[], int, int, (int, byte)[], int)[] {
-            ("GB (SGB2)", 0x051800, new (int, int)[] { (0x05C2C0, 0x0) }, 0x0, 0x56E00, new (int, byte)[] { }, 0x061D80),
-            ("Black (SGB2)", 0x0, new (int, int)[] { (0x0, 0x0) }, 0x0, 0x0, new (int, byte)[] { }, 0x061DC0),
-            ("Printed Circuit Board", 0x052000, new (int, int)[] { (0x059100, 0x1D00) }, 0x1D00, 0x57080, new (int, byte)[] { }, 0x062000),
-            ("Palm Trees", 0x067000, new (int, int)[] { (0x063000, 0x4000) }, 0x4000, 0x67880, new (int, byte)[] { (0x449B7, 0x10), (0x449D5, 0x18) }, 0x062040),
-            ("Stone Mosaic", 0x052800, new (int, int)[] { (0x04E000, 0x16E0), (0x04C000, 0x2000) }, 0x36E0, 0x57480, new (int, byte)[] { (0x40FC6, 0x70), (0x40FC7, 0x0B), (0x40FE4, 0x70), (0x40FE5, 0x1B), (0x4101D, 0xE0), (0x4101E, 0x06) }, 0x062080),
-            ("Gears", 0x06D000, new (int, int)[] { (0x068000, 0x5000) }, 0x5000, 0x67A80, new (int, byte)[] { (0x446DC, 0x18), (0x446FA, 0x20) }, 0x0620C0),
-            ("Swamp", 0x053000, new (int, int)[] { (0x048000, 0x4000) }, 0x4000, 0x57A80, new (int, byte)[] { (0x4153E, 0x10), (0x41541, 0x10), (0x41544, 0xA0), (0x4154B, 0x09), (0x4155F, 0x18), (0x41562, 0xB0), (0x4157A, 0x08), (0x4157D, 0x3C), (0x41587, 0x0A), (0x041C6B, 0x60) }, 0x062100),
-            ("Dolphins", 0x053800, new (int, int)[] { (0x05CCC0, 0x30C0) }, 0x30C0, 0x57C80, new (int, byte)[] { (0x4265B, 0x10), (0x42679, 0x10), (0x4267C, 0x10), (0x4267E, 0xC0), (0x4267F, 0xEC), (0x42686, 0x0B), (0x42696, 0xC0), (0x42697, 0x00), (0x4269A, 0x18), (0x4269E, 0xC0), (0x4269D, 0xFC), (0x426B5, 0x08), (0x426B8, 0x3C), (0x426BB, 0xB8), (0x426C2, 0x0A) }, 0x062140),
-            ("Chess Arena", 0x054800, new (int, int)[] { (0x050000, 0x1000), (0x055800, 0x2000) }, 0x3000, 0x57880, new (int, byte)[] { (0x43333, 0x50), (0x4334E, 0x10), (0x43351, 0x08), (0x43354, 0xD8), (0x4336F, 0x10), (0x43372, 0xE8), (0x4338A, 0x08), (0x4338D, 0x3C), (0x43390, 0xC8) }, 0x061D40)
+        private static readonly (string name, int tilemap, (int addr, int chunk_length)[] tileset_chunks, int tileset_maxsize, int palettes, (int addr, byte value)[] patches, int icon, int checksum)[] border_data = new (string, int, (int, int)[], int, int, (int, byte)[], int, int)[] {
+            ("GB (SGB2)", 0x051800, new (int, int)[] { (0x05C2C0, 0x0) }, 0x0, 0x56E00, new (int, byte)[] { }, 0x061D80, 0x23D2),
+            ("Black (SGB2)", 0x0, new (int, int)[] { (0x0, 0x0) }, 0x0, 0x0, new (int, byte)[] { }, 0x061DC0, 0x43BB),
+            ("Printed Circuit Board", 0x052000, new (int, int)[] { (0x059100, 0x1D00) }, 0x1D00, 0x57080, new (int, byte)[] { }, 0x062000, 0x226B),
+            ("Palm Trees", 0x067000, new (int, int)[] { (0x063000, 0x4000) }, 0x4000, 0x67880, new (int, byte)[] { (0x449B7, 0x10), (0x449D5, 0x18) }, 0x062040, 0x2794),
+            ("Stone Mosaic", 0x052800, new (int, int)[] { (0x04E000, 0x16E0), (0x04C000, 0x2000) }, 0x36E0, 0x57480, new (int, byte)[] { (0x40FC6, 0x70), (0x40FC7, 0x0B), (0x40FE4, 0x70), (0x40FE5, 0x1B), (0x4101D, 0xE0), (0x4101E, 0x06) }, 0x062080, 0x3310),
+            ("Gears", 0x06D000, new (int, int)[] { (0x068000, 0x5000) }, 0x5000, 0x67A80, new (int, byte)[] { (0x446DC, 0x18), (0x446FA, 0x20) }, 0x0620C0, 0x3180),
+            ("Swamp", 0x053000, new (int, int)[] { (0x048000, 0x4000) }, 0x4000, 0x57A80, new (int, byte)[] { (0x4153E, 0x10), (0x41541, 0x10), (0x41544, 0xA0), (0x4154B, 0x09), (0x4155F, 0x18), (0x41562, 0xB0), (0x4157A, 0x08), (0x4157D, 0x3C), (0x41587, 0x0A), (0x041C6B, 0x60) }, 0x062100, 0x2C66),
+            ("Dolphins", 0x053800, new (int, int)[] { (0x05CCC0, 0x30C0) }, 0x30C0, 0x57C80, new (int, byte)[] { (0x4265B, 0x10), (0x42679, 0x10), (0x4267C, 0x10), (0x4267E, 0xC0), (0x4267F, 0xEC), (0x42686, 0x0B), (0x42696, 0xC0), (0x42697, 0x00), (0x4269A, 0x18), (0x4269E, 0xC0), (0x4269D, 0xFC), (0x426B5, 0x08), (0x426B8, 0x3C), (0x426BB, 0xB8), (0x426C2, 0x0A) }, 0x062140, 0x220E),
+            ("Chess Arena", 0x054800, new (int, int)[] { (0x050000, 0x1000), (0x055800, 0x2000) }, 0x3000, 0x57880, new (int, byte)[] { (0x43333, 0x50), (0x4334E, 0x10), (0x43351, 0x08), (0x43354, 0xD8), (0x4336F, 0x10), (0x43372, 0xE8), (0x4338A, 0x08), (0x4338D, 0x3C), (0x43390, 0xC8) }, 0x061D40, 0x261F)
         };
 
         internal static readonly List<Bitmap> icons = new List<Bitmap>();
@@ -112,7 +112,7 @@ namespace SGB2_Border_Injector
                     // change memory transfers to allow for bigger tilesets
                     success &= ApplyDMAPatches(fs, border);
                     // remove screensaver, since it would glitch out
-                    success &= PatchOutScreensaver(fs);
+                    success &= PatchOutScreensaver(fs, border);
                     // automatically switch to new border on startup
                     success &= SetStartupBorder(fs, border);
                     WriteLine($"Applied {border_data[border - 1].patches.Length} DMA patches, disabled screensaver, set startup border: {(success ? "Done" : "Error")}");
@@ -689,16 +689,54 @@ namespace SGB2_Border_Injector
             return false;
         }
 
-        // remove screensaver functionality for all borders (timer, button combo and sound effect)
-        // it might be possible to keep screensaver for other borders and only remove screensaver code for the modified border slot (not implemented)
-        private static bool PatchOutScreensaver(FileStream fs)
+        // disable screensaver for borders that were modified
+        private static bool PatchOutScreensaver(FileStream fs, int border)
         {
             try
             {
-                fs.Seek(0x3D36, SeekOrigin.Begin);
-                fs.WriteByte(0x80);
-                fs.Seek(0xDDD6, SeekOrigin.Begin);
-                fs.WriteByte(0x00);
+                if (border < 3 || border > 9)
+                    return false;
+
+                fs.Seek(0x3F28C, SeekOrigin.Begin);
+                int mod = fs.ReadByte();
+                mod |= 0x01 << (border - 3);
+
+                // try to detect if borders were changed with an older version of this tool
+                for (int i = 3; i < 10; i++)
+                {
+                    var (_, _, _, _, palettes, _, _, checksum) = border_data[i - 1];
+                    int b = 0;
+                    fs.Seek(palettes, SeekOrigin.Begin);
+                    for (int j = 0; j < 48; j++)
+                        b += fs.ReadByte();
+
+                    fs.Seek(palettes, SeekOrigin.Begin);
+                    for (int j = 0; j < 64; j++)
+                        b += fs.ReadByte();
+
+                    if (b != checksum)
+                        mod |= 0x01 << (i - 3);
+                }
+
+                // update byte to mark border(s) as modified
+                fs.Seek(0x3F28C, SeekOrigin.Begin);
+                fs.WriteByte((byte)mod);
+
+                // asm changes
+                // jump to border modification check
+                fs.Seek(0x5E3C, SeekOrigin.Begin);
+                fs.Write(new byte[] { 0x22, 0x8D, 0xF2, 0x87 }, 0, 0x04);
+
+                // jump to "ding" check
+                fs.Seek(0xDDD3, SeekOrigin.Begin);
+                fs.Write(new byte[] { 0x22, 0xB4, 0xF2, 0x87 }, 0, 0x04);
+
+                fs.Seek(0x3F28D, SeekOrigin.Begin);
+                // check if border was modified
+                fs.Write(new byte[] { 0x8F, 0x11, 0xC0, 0x7E, 0x9C, 0xFF, 0x02, 0xAD, 0xFF, 0x07, 0xD0, 0x1A, 0xAD, 0x03, 0x0C, 0x38, 0xE9, 0x03, 0x30, 0x12, 0x1A, 0xDA, 0xAA, 0xA9, 0x00, 0x38, 0x2A, 0xCA, 0xD0, 0xFC, 0x2F, 0x8C, 0xF2, 0x87, 0x8D, 0xFF, 0x02, 0xFA, 0x6B }, 0, 0x27);
+                // only "ding" on LLLLR input if the screensaver will be activated
+                fs.Write(new byte[] { 0xAD, 0xFE, 0x02, 0xE2, 0x20, 0xD0, 0x03, 0xA9, 0x01, 0x6B, 0xA9, 0x00, 0x6B }, 0, 0x0D);
+
                 return true;
             }
             catch { }
