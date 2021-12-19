@@ -9,28 +9,35 @@ namespace SGB2_Border_Injector
     public partial class MainWindow : Form
     {
         internal WriteLine WriteLineHandler;
+        internal UpdateImage UpdateImageHandler;
         internal ThreadDone ThreadDoneHandler;
 
         private string border_file = "";
         private bool invert_icon = false;
+        private Thread t = null;
+        bool refresh_image = false;
 
         public MainWindow()
         {
             InitializeComponent();
             WriteLineHandler = new WriteLine(WriteLineMethod);
+            UpdateImageHandler = new UpdateImage(UpdateImageMethod);
             ThreadDoneHandler = new ThreadDone(ThreadDoneMethod);
         }
 
         private void buttonFileSelect_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            openFileDialog.Title = "Select Super Game Boy 2 (Japan) ROM file";
+            openFileDialog.FileName = "Super Game Boy 2 (Japan).sfc";
+            openFileDialog.Filter = "SFC ROM Files|*.sfc; *.bin|All files|*.*";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    var (valid, msg) = Program.ValidateRomFile(saveFileDialog.FileName);
+                    var (valid, msg) = Program.ValidateRomFile(openFileDialog.FileName);
                     if (valid)
                     {
-                        textBoxFilename.Text = saveFileDialog.FileName;
+                        textBoxFilename.Text = openFileDialog.FileName;
                         textBoxOutput.Text = "Super Game Boy 2 ROM detected.";
                         if (msg != string.Empty)
                             textBoxOutput.Text += $"\r\n\r\n{msg}";
@@ -48,31 +55,46 @@ namespace SGB2_Border_Injector
         private void buttonLoadImage_Click(object sender, EventArgs e)
         {
             openFileDialog.Title = "Select Border Image";
+            openFileDialog.FileName = "";
+            openFileDialog.Filter = "Lossless Image files|*.png; *.bmp|All files|*.*";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
                     textBoxOutput.Text = "";
-                    Bitmap img = Program.LoadImage(openFileDialog.FileName);
-                    if (img != null)
-                    {
-                        pictureBox.Image = img;
-                        border_file = openFileDialog.FileName;
-                    }
-                    else
-                    {
-                        pictureBox.Image = null;
-                        textBoxOutput.Text = "Error loading image.";
-                        border_file = "";
-                    }
+                    RefreshImage(openFileDialog.FileName);
                 }
                 catch { }
+            }
+        }
+
+        private void RefreshImage(string filename)
+        {
+            buttonSaveDitheredImage.Visible = false;
+            buttonLoadImage.Width = 257;
+
+            if (filename == null || filename == "")
+                return;
+
+            Bitmap img = Program.LoadImage(filename, false);
+            if (img != null)
+            {
+                pictureBox.Image = img;
+                border_file = openFileDialog.FileName;
+            }
+            else
+            {
+                pictureBox.Image = null;
+                textBoxOutput.Text = "Error loading image.";
+                border_file = "";
             }
         }
 
         private void buttonLoadIcon_Click(object sender, EventArgs e)
         {
             openFileDialog.Title = "Select Icon Image";
+            openFileDialog.FileName = "";
+            openFileDialog.Filter = "Lossless Image files|*.png; *.bmp|All files|*.*";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -98,23 +120,59 @@ namespace SGB2_Border_Injector
 
         private void buttonInject_Click(object sender, EventArgs e)
         {
-            // disable button
-            buttonInject.Enabled = false;
-            Application.UseWaitCursor = true;
-            textBoxOutput.Text = string.Empty;
-            
-            // launch injection process in separate thread to keep window responsive
-            string sgb2_rom = textBoxFilename.Text;
-            int border = comboBoxSlot.SelectedIndex + 3;
-            int icon = comboBoxIcon.SelectedIndex - 1;
-            bool external_palettes = checkBoxExternalPalettes.Checked;
-            bool backup = checkBoxBackup.Checked;
-            new Thread(delegate () {
-                bool success = Program.InjectCustomBorder(sgb2_rom, border_file, border, icon, external_palettes, backup);
-                Invoke(WriteLineHandler, $"\r\nInjecting border status: {(success ? "Success" : "Error")}");
-                Invoke(ThreadDoneHandler);
-            }).Start();
+            if (buttonInject.Text == "Inject Border")
+            {
+                // disable button
+                //buttonInject.Enabled = false;
+                buttonInject.Text = "Cancel Action";
+                Application.UseWaitCursor = true;
+                textBoxOutput.Text = string.Empty;
 
+                // launch injection process in separate thread to keep window responsive
+                string sgb2_rom = textBoxFilename.Text;
+                int border = comboBoxSlot.SelectedIndex + 3;
+                int icon = comboBoxIcon.SelectedIndex - 1;
+                bool set_startup = checkBoxSetStartup.Checked;
+                bool dither = checkBoxDither.Checked;
+                bool external_palettes = checkBoxExternalPalettes.Checked;
+                bool backup = checkBoxBackup.Checked;
+                t = new Thread(delegate ()
+                {
+                    try
+                    {
+                        bool success = Program.InjectCustomBorder(sgb2_rom, border_file, border, icon, set_startup, dither, external_palettes, backup);
+                        Program.WriteLine($"\r\nInjecting border status: {(success ? "Success" : "Error")}");
+                    }
+                    catch (Exception ex)
+                    {
+#if DEBUG
+                        Console.WriteLine(ex);
+#endif
+                        Program.WriteLine();
+                        if (ex is System.Threading.ThreadAbortException)
+                            Program.WriteLine("Action aborted.");
+                        else
+                            Program.WriteLine("The program encountered an error. Aborting.");
+
+                    }
+                    finally
+                    {
+                        Invoke(ThreadDoneHandler);
+                    }
+                })
+                {
+                    IsBackground = true // abort thread if window is closed
+                };
+                t.Start();
+            }
+            else
+            {
+                try
+                {
+                    t.Abort();
+                }
+                catch { }
+            }
         }
 
         private void comboBoxIcon_SelectedIndexChanged(object sender, EventArgs e)
@@ -190,10 +248,18 @@ namespace SGB2_Border_Injector
             pictureBoxIcon.Refresh();
         }
 
-        internal delegate void WriteLine(string line = "");
-        private void WriteLineMethod(string line = "")
+        internal delegate void WriteLine(string line = "", bool newLine = true);
+        private void WriteLineMethod(string line = "", bool newLine = true)
         {
-            textBoxOutput.AppendText(line + "\r\n");
+            textBoxOutput.AppendText(line + (newLine ? "\r\n" : ""));
+        }
+
+        internal delegate void UpdateImage(Bitmap image);
+        private void UpdateImageMethod(Bitmap image)
+        {
+            pictureBox.Image = image;
+            buttonSaveDitheredImage.Visible = true;
+            buttonLoadImage.Width = 179;
         }
 
         internal delegate void ThreadDone();
@@ -201,7 +267,45 @@ namespace SGB2_Border_Injector
         {
             Application.UseWaitCursor = false;
             Cursor.Current = Cursors.Default;
-            buttonInject.Enabled = true;
+            //buttonInject.Enabled = true;
+            buttonInject.Text = "Inject Border";
+            if (refresh_image)
+            {
+                RefreshImage(border_file);
+                refresh_image = false;
+            }
+        }
+
+        private void pictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            if (pictureBox.Image != null) 
+                g.FillRectangle(new SolidBrush(Color.FromArgb(255, 239, 206)), new Rectangle(48, 40, 160, 144));
+        }
+
+        private void checkBoxDither_CheckedChanged(object sender, EventArgs e)
+        {
+            if (t != null && t.IsAlive)
+                refresh_image = true;
+            else
+                RefreshImage(border_file);                
+        }
+
+        private void buttonSaveDitheredImage_Click(object sender, EventArgs e)
+        {
+            if (saveImageDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    pictureBox.Image.Save(saveImageDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                }
+                catch
+                {
+                    textBoxOutput.AppendText("\r\nError: Could not save file.");
+                    return;
+                }
+                textBoxOutput.AppendText($"\r\nImage saved as {saveImageDialog.FileName}.");
+            }
         }
     }
 }

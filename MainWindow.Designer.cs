@@ -37,9 +37,9 @@ namespace SGB2_Border_Injector
             this.buttonLoadImage = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.groupBoxImage = new System.Windows.Forms.GroupBox();
+            this.buttonSaveDitheredImage = new System.Windows.Forms.Button();
             this.groupBoxFile = new System.Windows.Forms.GroupBox();
             this.groupBoxOutput = new System.Windows.Forms.GroupBox();
             this.buttonInject = new System.Windows.Forms.Button();
@@ -51,6 +51,9 @@ namespace SGB2_Border_Injector
             this.checkBoxExternalPalettes = new System.Windows.Forms.CheckBox();
             this.checkBoxBackup = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBoxDither = new System.Windows.Forms.CheckBox();
+            this.checkBoxSetStartup = new System.Windows.Forms.CheckBox();
+            this.saveImageDialog = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBoxImage.SuspendLayout();
@@ -91,13 +94,13 @@ namespace SGB2_Border_Injector
             this.textBoxOutput.Size = new System.Drawing.Size(527, 152);
             this.textBoxOutput.TabIndex = 0;
             this.textBoxOutput.Text = "Image requirements: 256 × 224 px, with a maximum of 3 × 15 color palettes.\r\n\r\n   " +
-    "  Version 0.92\r\n       - by blizzz";
+    "  Version 1.0 Beta1\r\n       - by blizzz";
             // 
             // buttonLoadImage
             // 
             this.buttonLoadImage.Location = new System.Drawing.Point(16, 24);
             this.buttonLoadImage.Name = "buttonLoadImage";
-            this.buttonLoadImage.Size = new System.Drawing.Size(258, 23);
+            this.buttonLoadImage.Size = new System.Drawing.Size(257, 23);
             this.buttonLoadImage.TabIndex = 0;
             this.buttonLoadImage.Text = "Select Border Image";
             this.buttonLoadImage.UseVisualStyleBackColor = true;
@@ -111,6 +114,7 @@ namespace SGB2_Border_Injector
             this.pictureBox.Size = new System.Drawing.Size(256, 224);
             this.pictureBox.TabIndex = 4;
             this.pictureBox.TabStop = false;
+            this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
             // 
             // panel1
             // 
@@ -119,13 +123,7 @@ namespace SGB2_Border_Injector
             this.panel1.Location = new System.Drawing.Point(313, 13);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(258, 226);
-            this.panel1.TabIndex = 7;
-            // 
-            // saveFileDialog
-            // 
-            this.saveFileDialog.FileName = "Super Game Boy 2 (Japan).sfc";
-            this.saveFileDialog.Filter = "SFC ROM Files|*.sfc; *.bin|All files|*.*";
-            this.saveFileDialog.Title = "Select Super Game Boy 2 (Japan) ROM file";
+            this.panel1.TabIndex = 9;
             // 
             // openFileDialog
             // 
@@ -134,13 +132,26 @@ namespace SGB2_Border_Injector
             // 
             // groupBoxImage
             // 
+            this.groupBoxImage.Controls.Add(this.buttonSaveDitheredImage);
             this.groupBoxImage.Controls.Add(this.buttonLoadImage);
             this.groupBoxImage.Location = new System.Drawing.Point(12, 76);
             this.groupBoxImage.Name = "groupBoxImage";
             this.groupBoxImage.Size = new System.Drawing.Size(290, 63);
             this.groupBoxImage.TabIndex = 1;
             this.groupBoxImage.TabStop = false;
-            this.groupBoxImage.Text = "Select Border Image";
+            this.groupBoxImage.Text = "Border Image";
+            // 
+            // buttonSaveDitheredImage
+            // 
+            this.buttonSaveDitheredImage.Location = new System.Drawing.Point(200, 24);
+            this.buttonSaveDitheredImage.Name = "buttonSaveDitheredImage";
+            this.buttonSaveDitheredImage.Size = new System.Drawing.Size(74, 23);
+            this.buttonSaveDitheredImage.TabIndex = 1;
+            this.buttonSaveDitheredImage.Text = "Save Image";
+            this.toolTip.SetToolTip(this.buttonSaveDitheredImage, "Save color reduced /dithered image.");
+            this.buttonSaveDitheredImage.UseVisualStyleBackColor = true;
+            this.buttonSaveDitheredImage.Visible = false;
+            this.buttonSaveDitheredImage.Click += new System.EventHandler(this.buttonSaveDitheredImage_Click);
             // 
             // groupBoxFile
             // 
@@ -151,7 +162,7 @@ namespace SGB2_Border_Injector
             this.groupBoxFile.Size = new System.Drawing.Size(290, 63);
             this.groupBoxFile.TabIndex = 0;
             this.groupBoxFile.TabStop = false;
-            this.groupBoxFile.Text = "Select Super Game Boy 2 ROM File";
+            this.groupBoxFile.Text = "Super Game Boy 2 ROM File";
             // 
             // groupBoxOutput
             // 
@@ -159,7 +170,7 @@ namespace SGB2_Border_Injector
             this.groupBoxOutput.Location = new System.Drawing.Point(11, 286);
             this.groupBoxOutput.Name = "groupBoxOutput";
             this.groupBoxOutput.Size = new System.Drawing.Size(560, 192);
-            this.groupBoxOutput.TabIndex = 6;
+            this.groupBoxOutput.TabIndex = 8;
             this.groupBoxOutput.TabStop = false;
             this.groupBoxOutput.Text = "Output";
             // 
@@ -168,7 +179,7 @@ namespace SGB2_Border_Injector
             this.buttonInject.Location = new System.Drawing.Point(27, 251);
             this.buttonInject.Name = "buttonInject";
             this.buttonInject.Size = new System.Drawing.Size(258, 23);
-            this.buttonInject.TabIndex = 3;
+            this.buttonInject.TabIndex = 7;
             this.buttonInject.Text = "Inject Border";
             this.buttonInject.UseVisualStyleBackColor = true;
             this.buttonInject.Click += new System.EventHandler(this.buttonInject_Click);
@@ -183,12 +194,19 @@ namespace SGB2_Border_Injector
             "6 (Gears)",
             "7 (Swamp)",
             "8 (Dolphins)",
-            "9 (Chess Arena)"});
+            "9 (Chess Arena)",
+            "3\' (SGB1 Windows, 12 KB)",
+            "4\' (SGB1 Cork Board, 9 KB)",
+            "5\' (SGB1 Log Cabin, 12 KB)",
+            "6\' (SGB1 Movie Theater, 12 KB)",
+            "7\' (SGB1 Cats, 10 KB)",
+            "8\' (SGB1 Desk, 11 KB)",
+            "9\' (SGB1 Escher, 9 KB)"});
             this.comboBoxSlot.Location = new System.Drawing.Point(16, 24);
             this.comboBoxSlot.Name = "comboBoxSlot";
             this.comboBoxSlot.Size = new System.Drawing.Size(258, 21);
             this.comboBoxSlot.TabIndex = 0;
-            this.comboBoxSlot.Text = "9 (Chess Arena)";
+            this.comboBoxSlot.Text = "3 (Printed Circuit Board)";
             // 
             // groupBoxSlot
             // 
@@ -201,7 +219,7 @@ namespace SGB2_Border_Injector
             this.groupBoxSlot.Size = new System.Drawing.Size(290, 89);
             this.groupBoxSlot.TabIndex = 2;
             this.groupBoxSlot.TabStop = false;
-            this.groupBoxSlot.Text = "Select Border Slot";
+            this.groupBoxSlot.Text = "Border Slot";
             // 
             // pictureBoxIcon
             // 
@@ -243,31 +261,60 @@ namespace SGB2_Border_Injector
             // checkBoxExternalPalettes
             // 
             this.checkBoxExternalPalettes.AutoSize = true;
-            this.checkBoxExternalPalettes.Location = new System.Drawing.Point(423, 255);
+            this.checkBoxExternalPalettes.Location = new System.Drawing.Point(427, 267);
             this.checkBoxExternalPalettes.Name = "checkBoxExternalPalettes";
             this.checkBoxExternalPalettes.Size = new System.Drawing.Size(132, 17);
-            this.checkBoxExternalPalettes.TabIndex = 5;
+            this.checkBoxExternalPalettes.TabIndex = 6;
             this.checkBoxExternalPalettes.Text = "Load External Palettes";
-            this.toolTip.SetToolTip(this.checkBoxExternalPalettes, "Load palettes from palettes.bin.\r\n3 x 16 BGR15 colors = 96 bytes, first color in " +
-        "each palette is ignored.");
+            this.toolTip.SetToolTip(this.checkBoxExternalPalettes, "Load palettes from palettes.bin. See readme.txt.\r\n3 x 16 BGR15 colors = 96 bytes," +
+        " first color in each palette is ignored.");
             this.checkBoxExternalPalettes.UseVisualStyleBackColor = true;
             // 
             // checkBoxBackup
             // 
             this.checkBoxBackup.AutoSize = true;
-            this.checkBoxBackup.Location = new System.Drawing.Point(333, 255);
+            this.checkBoxBackup.Location = new System.Drawing.Point(333, 246);
             this.checkBoxBackup.Name = "checkBoxBackup";
             this.checkBoxBackup.Size = new System.Drawing.Size(82, 17);
-            this.checkBoxBackup.TabIndex = 4;
+            this.checkBoxBackup.TabIndex = 3;
             this.checkBoxBackup.Text = "Backup File";
-            this.toolTip.SetToolTip(this.checkBoxBackup, "Create .sfc.bak copy before changing file.");
+            this.toolTip.SetToolTip(this.checkBoxBackup, "Create copy of rom file before writing changes.");
             this.checkBoxBackup.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDither
+            // 
+            this.checkBoxDither.AutoSize = true;
+            this.checkBoxDither.Location = new System.Drawing.Point(333, 267);
+            this.checkBoxDither.Name = "checkBoxDither";
+            this.checkBoxDither.Size = new System.Drawing.Size(54, 17);
+            this.checkBoxDither.TabIndex = 5;
+            this.checkBoxDither.Text = "Dither";
+            this.toolTip.SetToolTip(this.checkBoxDither, "Use dithering if colors have to be reduced.\r\nNot recommended for pixel art.");
+            this.checkBoxDither.UseVisualStyleBackColor = true;
+            this.checkBoxDither.CheckedChanged += new System.EventHandler(this.checkBoxDither_CheckedChanged);
+            // 
+            // checkBoxSetStartup
+            // 
+            this.checkBoxSetStartup.AutoSize = true;
+            this.checkBoxSetStartup.Location = new System.Drawing.Point(427, 246);
+            this.checkBoxSetStartup.Name = "checkBoxSetStartup";
+            this.checkBoxSetStartup.Size = new System.Drawing.Size(127, 17);
+            this.checkBoxSetStartup.TabIndex = 4;
+            this.checkBoxSetStartup.Text = "Set as Startup Border";
+            this.toolTip.SetToolTip(this.checkBoxSetStartup, "Switch to custom border on startup.");
+            this.checkBoxSetStartup.UseVisualStyleBackColor = true;
+            // 
+            // saveImageDialog
+            // 
+            this.saveImageDialog.Filter = "PNG Image|*.png";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 491);
+            this.Controls.Add(this.checkBoxSetStartup);
+            this.Controls.Add(this.checkBoxDither);
             this.Controls.Add(this.buttonInject);
             this.Controls.Add(this.checkBoxBackup);
             this.Controls.Add(this.checkBoxExternalPalettes);
@@ -301,7 +348,6 @@ namespace SGB2_Border_Injector
         private System.Windows.Forms.Button buttonFileSelect;
         private System.Windows.Forms.Button buttonLoadImage;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.GroupBox groupBoxImage;
         private System.Windows.Forms.GroupBox groupBoxFile;
@@ -317,5 +363,9 @@ namespace SGB2_Border_Injector
         private System.Windows.Forms.Button buttonLoadIcon;
         internal System.Windows.Forms.ComboBox comboBoxIcon;
         private System.Windows.Forms.PictureBox pictureBoxIcon;
+        private System.Windows.Forms.CheckBox checkBoxDither;
+        internal System.Windows.Forms.Button buttonSaveDitheredImage;
+        private System.Windows.Forms.SaveFileDialog saveImageDialog;
+        private System.Windows.Forms.CheckBox checkBoxSetStartup;
     }
 }

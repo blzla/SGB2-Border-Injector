@@ -79,6 +79,50 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SGBCompression.cs" />
+    <Compile Include="SimplePaletteQuantizer\BaseColorCache.cs" />
+    <Compile Include="SimplePaletteQuantizer\BaseColorCacheQuantizer.cs" />
+    <Compile Include="SimplePaletteQuantizer\BaseColorDitherer.cs" />
+    <Compile Include="SimplePaletteQuantizer\BaseColorQuantizer.cs" />
+    <Compile Include="SimplePaletteQuantizer\BaseOrderedDitherer.cs" />
+    <Compile Include="SimplePaletteQuantizer\BayerDitherer4.cs" />
+    <Compile Include="SimplePaletteQuantizer\ColorModel.cs" />
+    <Compile Include="SimplePaletteQuantizer\ColorModelHelper.cs" />
+    <Compile Include="SimplePaletteQuantizer\DistinctBucket.cs" />
+    <Compile Include="SimplePaletteQuantizer\DistinctColorInfo.cs" />
+    <Compile Include="SimplePaletteQuantizer\DistinctSelectionQuantizer.cs" />
+    <Compile Include="SimplePaletteQuantizer\Extend.IEnumerable.cs" />
+    <Compile Include="SimplePaletteQuantizer\FastRandom.cs" />
+    <Compile Include="SimplePaletteQuantizer\Guard.cs" />
+    <Compile Include="SimplePaletteQuantizer\IColorCache.cs" />
+    <Compile Include="SimplePaletteQuantizer\IColorDitherer.cs" />
+    <Compile Include="SimplePaletteQuantizer\IColorQuantizer.cs" />
+    <Compile Include="SimplePaletteQuantizer\IIndexedPixel.cs" />
+    <Compile Include="SimplePaletteQuantizer\ImageBuffer.cs" />
+    <Compile Include="SimplePaletteQuantizer\INonIndexedPixel.cs" />
+    <Compile Include="SimplePaletteQuantizer\IPathProvider.cs" />
+    <Compile Include="SimplePaletteQuantizer\OctreeCacheNode.cs" />
+    <Compile Include="SimplePaletteQuantizer\OctreeColorCache.cs" />
+    <Compile Include="SimplePaletteQuantizer\OctreeNode.cs" />
+    <Compile Include="SimplePaletteQuantizer\OctreeQuantizer.cs" />
+    <Compile Include="SimplePaletteQuantizer\Pixel.cs" />
+    <Compile Include="SimplePaletteQuantizer\PixelData1Indexed.cs" />
+    <Compile Include="SimplePaletteQuantizer\PixelData4Indexed.cs" />
+    <Compile Include="SimplePaletteQuantizer\PixelData8Indexed.cs" />
+    <Compile Include="SimplePaletteQuantizer\PixelDataArgb1555.cs" />
+    <Compile Include="SimplePaletteQuantizer\PixelDataArgb64.cs" />
+    <Compile Include="SimplePaletteQuantizer\PixelDataArgb8888.cs" />
+    <Compile Include="SimplePaletteQuantizer\PixelDataGray16.cs" />
+    <Compile Include="SimplePaletteQuantizer\PixelDataRgb48.cs" />
+    <Compile Include="SimplePaletteQuantizer\PixelDataRgb555.cs" />
+    <Compile Include="SimplePaletteQuantizer\PixelDataRgb565.cs" />
+    <Compile Include="SimplePaletteQuantizer\PixelDataRgb888.cs" />
+    <Compile Include="SimplePaletteQuantizer\PixelDataRgb8888.cs" />
+    <Compile Include="SimplePaletteQuantizer\QuantizationHelper.cs" />
+    <Compile Include="SimplePaletteQuantizer.cs" />
+    <Compile Include="SimplePaletteQuantizer\StandardPathProvider.cs" />
+    <Compile Include="SimplePaletteQuantizer\WuColorCube.cs" />
+    <Compile Include="SimplePaletteQuantizer\WuColorQuantizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -104,6 +148,8 @@
   <ItemGroup>
     <Content Include="icon.ico" />
     <None Include="Resources\icon_goose.png" />
+    <Compile Include="SimplePaletteQuantizer\Extend.Image.cs" />
+    <Compile Include="SimplePaletteQuantizer\Extend.PixelFormat.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
