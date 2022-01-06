@@ -93,8 +93,8 @@ namespace SGB2_Border_Injector
             this.textBoxOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxOutput.Size = new System.Drawing.Size(527, 152);
             this.textBoxOutput.TabIndex = 0;
-            this.textBoxOutput.Text = "Image requirements: 256 × 224 px, with a maximum of 3 × 15 color palettes.\r\n\r\n   " +
-    "  Version 1.0 Beta1\r\n       - by blizzz";
+            this.textBoxOutput.Text = "Super Game Boy 2 Border Injector by blizzz (version 1.0)\r\n\r\nImage requirements: 2" +
+    "56 × 224 px, with a maximum of three 15 color palettes.";
             // 
             // buttonLoadImage
             // 
