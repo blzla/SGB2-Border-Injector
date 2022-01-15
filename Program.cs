@@ -137,7 +137,7 @@ namespace SGB2_Border_Injector
 
                     if (tileset.Length > border_data[border - 3].tileset_maxsize)
                     {
-                        WriteLine($"Compressed tileset is too big for slot {border - 3}'. Input size: 0x{tileset.Length:X4}, max size of slot {border - 3}': 0x{border_data[border - 3].tileset_maxsize:X4} bytes.");
+                        WriteLine($"Compressed tileset is too big for slot {border - 7}'. Input size: 0x{tileset.Length:X4}, max size of slot {border - 7}': 0x{border_data[border - 3].tileset_maxsize:X4} bytes.");
                         WriteLine($"Please select a different slot. Fits in all SGB2 slots and SGB1 slots: {FitsInCompressedSlots(tileset.Length)}");
                         return false;
                     }
